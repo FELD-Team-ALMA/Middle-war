@@ -196,10 +196,10 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	private JPanel makeBottomPanel() {
 		JPanel bottomPanel = new JPanel();
+		bottomPanel.setLayout(new GridLayout(1,3));
 
 		//pour soumettre un autre objet
-		bottomPanel.add(btnSoumettreObjet);
-		
+		bottomPanel.add(btnSoumettreObjet);		
 		bottomPanel.add(makeButtonPanel());
 		bottomPanel.add(makeChronoPanel());
 				
@@ -291,12 +291,10 @@ public class VueClient extends JFrame implements ActionListener{
 		this.setTitle(ParamsConfig.WINDOW_TITLE);
 
 		// au lancement on crée le panel d'inscription
-		makeInscriptionPanel();
-		
-				
+		makeInscriptionPanel();				
 		this.setContentPane(inscriptionPanel);
+		
 		this.setVisible(true);
-
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
