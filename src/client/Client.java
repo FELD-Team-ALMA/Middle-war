@@ -9,14 +9,13 @@ import serveur.Vente;
 public class Client extends UnicastRemoteObject implements Acheteur {
 
 	private static final long serialVersionUID = 1L;
-	private static final String adresseServeur = "localhost:8090/enchere";
 
 	private String pseudo;
 	private VueClient vue;
 	private Vente serveur;
 	private Objet currentObjet;
 	private EtatClient etat = EtatClient.ATTENTE;
-	private Chrono chrono = new Chrono(1000000, this); // Chrono de 30sc
+	private Chrono chrono = new Chrono(ParamsConfig.CHRONO_TIME, this);
 	private String[] catalogue;
 
 	public Client(String pseudo) throws RemoteException {
@@ -30,11 +29,11 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 
 	public static Vente connexionServeur() {
 		try {
-			Vente serveur = (Vente) Naming.lookup("//" + adresseServeur);
-			System.out.println("Connexion au serveur " + adresseServeur + " reussi.");
+			Vente serveur = (Vente) Naming.lookup("//" + ParamsConfig.ADRESSE_SERVEUR);
+			System.out.println("Connexion au serveur " + ParamsConfig.ADRESSE_SERVEUR + " reussi.");
 			return serveur;
 		} catch (Exception e) {
-			System.out.println("Connexion au serveur " + adresseServeur + " impossible.");
+			System.out.println("Connexion au serveur " + ParamsConfig.ADRESSE_SERVEUR + " impossible.");
 			e.printStackTrace();
 			return null;
 		}
@@ -153,6 +152,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	/**
 	 * Obtient un affichage pour le chrono
 	 * TODO: check for arrondis
+	 * commenté les heures parce que les enchères ne durent pas si longtemps dans l'état du programme
 	 * @return
 	 */	
 	public String getDisplayableTime() {
