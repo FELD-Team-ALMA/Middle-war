@@ -101,9 +101,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 				each.objetVendu(this.acheteurCourant.getPseudo());
 				
 			}
-		}
-		
-		
+		}		
 
 		Thread.sleep(5000);
 		this.acheteurCourant = null;
@@ -153,7 +151,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	
 	
 	/**
-	 * méthode utilitaire qui permet de savoir si les encheres sont finis.
+	 * méthode utilitaire qui permet de savoir si les encheres sont finies.
 	 * @return true si on a reçu que des -1, donc si l'enchere est finie, sinon false.
 	 */
 	public boolean enchereFinie(){	
@@ -226,6 +224,15 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 	public void setEtatVente(EtatVente etatVente) {
 		this.etatVente = etatVente;
+	}
+
+	@Override
+	public List<String> getCatalogue() throws RemoteException {
+		ArrayList<String> catalogue = new ArrayList<>();
+		for (Objet obj : getListeObjets()) {
+			catalogue.add(obj.getNom());
+		}
+		return catalogue;				
 	}
 
 	

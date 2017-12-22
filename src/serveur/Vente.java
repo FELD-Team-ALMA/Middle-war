@@ -2,6 +2,8 @@ package serveur;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
+import java.util.Stack;
 
 import client.Acheteur;
 
@@ -34,6 +36,13 @@ public interface Vente extends Remote {
 	
 	
 	public Objet getObjet() throws RemoteException;
+	
+	/**
+	 * Méthode pour renvoyer la liste des objets à venir au client (juste leur nom)
+	 * @return
+	 * @throws RemoteException
+	 */
+	public List<String> getCatalogue() throws RemoteException;
 
 
 }

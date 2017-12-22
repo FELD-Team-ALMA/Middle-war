@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -21,7 +22,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 9070911591784925769L;
 	
-	// Informations sur de l'Etat de la vente
+	// Informations de l'Etat de la vente
 	private Client currentClient;
 	
 	// Elements SWING
@@ -33,13 +34,13 @@ public class VueClient extends JFrame implements ActionListener{
 	private JLabel lblDescriptionObjet = new JLabel();
 	private JLabel lblPseudo = new JLabel();
 	private JLabel lblEncherir = new JLabel();
-	private JLabel lblChrono = new JLabel("chrono");
+	private JLabel lblChrono = new JLabel(ParamsConfig.CHRONO);
 
-	private JButton btnEncherir = new JButton("Encherir");
-	private JButton btnPseudo = new JButton("Inscription");
-	private JButton btnSoumettre = new JButton("Soumettre une enchere");
-	private JButton btnSoumettreObjet = new JButton("Soumettre");
-	private JButton btnStop = new JButton("Passer");
+	private JButton btnEncherir = new JButton(ParamsConfig.BUTTON_ENCHERIR);
+	private JButton btnPseudo = new JButton(ParamsConfig.BUTTON_INSCRIPTION);
+	private JButton btnSoumettre = new JButton(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
+	private JButton btnSoumettreObjet = new JButton(ParamsConfig.BUTTON_SOUMETTRE_OBJET);
+	private JButton btnStop = new JButton(ParamsConfig.BUTTON_PASSER);
 	
 	private JTextField txtEncherir = new JTextField();
 	private JTextField txtPseudo = new JTextField();
@@ -47,7 +48,9 @@ public class VueClient extends JFrame implements ActionListener{
 	private JTextField txtSoumettreDescriptionObjet = new JTextField();
 	private JTextField txtSoumettrePrixObjet = new JTextField();
 	
-	private JFrame frmSoumettre = new JFrame("Soumettre une enchere");
+	
+	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
+	
 
 	public JLabel getLblEncherir() {
 		return lblEncherir;
@@ -56,9 +59,9 @@ public class VueClient extends JFrame implements ActionListener{
 	public VueClient() throws Exception {
 		super();
 
-		//Definition de la fenetre
-		this.setSize(800,400);
-		this.setTitle("Vente aux encheres");
+		//Definition de la fenêtre
+		this.setSize(ParamsConfig.WINDOW_HEIGHT,ParamsConfig.WINDOW_WIDTH);
+		this.setTitle(ParamsConfig.WINDOW_TITLE);
 		Font fontBtn = new Font("Serif", Font.PLAIN, 10);
 
 		// PANEL INSCRIPTION
@@ -203,6 +206,7 @@ public class VueClient extends JFrame implements ActionListener{
 				changerGUI(this.mainPanel);
 			} catch (Exception e) {
 				e.printStackTrace();
+				
 				System.out.println("Inscription impossible");
 			}
 		}
@@ -216,6 +220,8 @@ public class VueClient extends JFrame implements ActionListener{
 				currentClient.nouvelleSoumission(txtSoumettreNomObjet.getText(), txtSoumettreDescriptionObjet.getText(), Integer.parseInt(txtSoumettrePrixObjet.getText()));
 			} catch (NumberFormatException e) {
 				System.out.println("Impossible de soumettre cet objet.");
+				displayErrorMessage("IMPOSSIBLE");
+				
 			}
 			frmSoumettre.dispose();
 		}
@@ -274,8 +280,32 @@ public class VueClient extends JFrame implements ActionListener{
 	}
 	
 	public void updateChrono(long temps, long tempsMax){
+		
 		this.lblChrono.setText("Chrono : "+ temps+"/"+tempsMax);
 	}
+	
+	/**
+	 * Afficher  les messages d'erreurs
+	 */
+	public void displayErrorMessage(String message) {
+		JOptionPane.showMessageDialog(this, message);
+	}
+		
+	/*
+	 * 
+	 */
+	public int getHeures(long temps) {
+		int heures = 0;
+		if (temps >= 60) {
+			while (temps >= 60) {
+				heures++;
+				temps = temps - 60;
+			}
+		}
+		return heures;		
+	}
+	
+	
 
 
 }
