@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import serveur.Objet;
@@ -27,14 +28,19 @@ public class VueClient extends JFrame implements ActionListener{
 	
 	// Elements SWING
 	private JPanel mainPanel = new JPanel();
-	private JPanel inscriptionPanel = new JPanel();
+	private JPanel inscriptionPanel;
 	
 	private JLabel lblPrixObjet = new JLabel();
 	private JLabel lblNomObjet = new JLabel();
 	private JLabel lblDescriptionObjet = new JLabel();
-	private JLabel lblPseudo = new JLabel();
+	private JLabel lblGagnant = new JLabel();
 	private JLabel lblEncherir = new JLabel();
 	private JLabel lblChrono = new JLabel(ParamsConfig.CHRONO);
+	private JLabel lblCatalogue = new JLabel(ParamsConfig.CATALOGUE);
+	private JLabel lblUtilisateur = new JLabel();
+	//on peut pas choisir le serveur mais on peut au moins afficher ou on va
+	private JLabel lblServer = new JLabel(ParamsConfig.SERVER);
+	private JLabel lblChoixPseudo = new JLabel(ParamsConfig.CHOIX_PSEUDO);
 
 	private JButton btnEncherir = new JButton(ParamsConfig.BUTTON_ENCHERIR);
 	private JButton btnPseudo = new JButton(ParamsConfig.BUTTON_INSCRIPTION);
@@ -47,6 +53,13 @@ public class VueClient extends JFrame implements ActionListener{
 	private JTextField txtSoumettreNomObjet = new JTextField();
 	private JTextField txtSoumettreDescriptionObjet = new JTextField();
 	private JTextField txtSoumettrePrixObjet = new JTextField();
+
+	//private JList<String> listCatalogue = new JList();
+	private JScrollPane scrollCatalogue;
+	
+	private boolean inscritVente = false;
+
+	private Font fontBtn = new Font("Serif", Font.PLAIN, 10);
 	
 	
 	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
@@ -55,20 +68,16 @@ public class VueClient extends JFrame implements ActionListener{
 	public JLabel getLblEncherir() {
 		return lblEncherir;
 	}
-
-	public VueClient() throws Exception {
-		super();
-
-		//Definition de la fenêtre
-		this.setSize(ParamsConfig.WINDOW_HEIGHT,ParamsConfig.WINDOW_WIDTH);
-		this.setTitle(ParamsConfig.WINDOW_TITLE);
-		Font fontBtn = new Font("Serif", Font.PLAIN, 10);
-
-		// PANEL INSCRIPTION
+	
+	
+	public void makeInscriptionPanel() {
+		inscriptionPanel = new JPanel();
 		inscriptionPanel.setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		//textfield et bouton pour choisir le pseudo
 	    txtPseudo.setPreferredSize(new Dimension(400, 40));   
 	    btnPseudo.setPreferredSize(new Dimension(100,40));
-		GridBagConstraints gbc = new GridBagConstraints();
 
 	    gbc.gridx = 0;
 	    gbc.gridy = 2;
@@ -81,9 +90,40 @@ public class VueClient extends JFrame implements ActionListener{
 	    gbc.gridheight = 1;
 	    gbc.gridwidth = 1;
 		inscriptionPanel.add(btnPseudo, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		inscriptionPanel.add(lblChoixPseudo, gbc);
+		
+		gbc.gridx = 2;
+		gbc.gridy = 3;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		inscriptionPanel.add(lblServer, gbc);
 
-			
-		// PANEL VENTE
+		btnPseudo.addActionListener(this);
+	}
+	
+	public void makeVentePanel() throws RemoteException {
+		mainPanel.setLayout(new GridBagLayout());
+		mainPanel.setPreferredSize(new Dimension(ParamsConfig.WINDOW_HEIGHT, ParamsConfig.WINDOW_WIDTH));
+		GridBagConstraints gbc = new GridBagConstraints();
+		/*listCatalogue = new JList<String>(currentClient.getCatalogue());
+		scrollCatalogue = new JScrollPane(listCatalogue);
+		//test
+		//size of the catalogue
+		int height = (int) (ParamsConfig.WINDOW_HEIGHT * 0.65);
+		int width = (int) (ParamsConfig.WINDOW_WIDTH * 0.25);
+		scrollCatalogue.setPreferredSize(new Dimension(height, width));
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.gridheight = 1;
+		gbc.gridwidth = 1;
+		mainPanel.add(scrollCatalogue, gbc);
+		*/
+
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setPreferredSize(new Dimension(800,400));
 		lblDescriptionObjet.setPreferredSize(new Dimension(500,300));
@@ -106,7 +146,7 @@ public class VueClient extends JFrame implements ActionListener{
 		mainPanel.add(lblPrixObjet, gbc);
 		
 		gbc.gridx = 3;
-		mainPanel.add(lblPseudo, gbc);
+		mainPanel.add(lblUtilisateur, gbc);
 		
 		gbc.gridx = 4;
 		mainPanel.add(lblChrono, gbc);
@@ -135,28 +175,37 @@ public class VueClient extends JFrame implements ActionListener{
 		gbc.gridx=6;
 		gbc.gridwidth=1;
 		mainPanel.add(btnSoumettre, gbc);
-		
-		// Ajout des liaison avec les boutons
-		btnEncherir.addActionListener(this);
-		btnPseudo.addActionListener(this);
+
 		btnSoumettre.addActionListener(this);
 		btnSoumettreObjet.addActionListener(this);
 		btnStop.addActionListener(this);
+		btnEncherir.addActionListener(this);
+	}
 
+	public VueClient() throws Exception {
+		super();
+
+		//Definition de la fenêtre
+		this.setSize(ParamsConfig.WINDOW_HEIGHT,ParamsConfig.WINDOW_WIDTH);
+		this.setTitle(ParamsConfig.WINDOW_TITLE);
+
+		// au lancement on crée le panel d'inscription
+		makeInscriptionPanel();
+				
 		this.setContentPane(inscriptionPanel);
 		this.setVisible(true);
 	}
 	
 	public void actualiserPrix() {
 		lblPrixObjet.setText("Prix courant : " + currentClient.getCurrentObjet().getPrixCourant() + " euros");
-		lblPseudo.setText("Gagnant : " + this.currentClient.getCurrentObjet().getGagnant());
+		lblGagnant.setText("Gagnant : " + this.currentClient.getCurrentObjet().getGagnant());
 		txtEncherir.setText("");
 	}
 	
 	public void actualiserObjet() {
 		Objet objet = currentClient.getCurrentObjet();
 		lblPrixObjet.setText("Prix courant : " + objet.getPrixCourant() + " euros");
-		lblPseudo.setText("Gagnant : " + objet.getGagnant());
+		lblGagnant.setText("Gagnant : " + objet.getGagnant());
 		lblDescriptionObjet.setText(objet.getDescription());
 		txtEncherir.setText("");
 		
@@ -203,6 +252,7 @@ public class VueClient extends JFrame implements ActionListener{
 			try {
 				setClient(new Client(txtPseudo.getText()));
 				currentClient.inscription();
+				makeVentePanel();
 				changerGUI(this.mainPanel);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -236,6 +286,7 @@ public class VueClient extends JFrame implements ActionListener{
 	public void changerGUI(JPanel vue) throws RemoteException{
 		if(this.currentClient.getCurrentObjet() != null){
 			actualiserObjet();
+			//actualiserCatalogue();
 		}
 		this.getContentPane().removeAll();
 		this.setContentPane(vue);

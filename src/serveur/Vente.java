@@ -3,7 +3,6 @@ package serveur;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.Stack;
 
 import client.Acheteur;
 
@@ -42,7 +41,7 @@ public interface Vente extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<String> getCatalogue() throws RemoteException;
+	public String[] getCatalogue() throws RemoteException;
 
 
 }
