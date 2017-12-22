@@ -13,7 +13,7 @@ import java.util.Stack;
 import client.Acheteur;
 
 public class VenteImpl extends UnicastRemoteObject implements Vente{
-	
+
 	private static final long serialVersionUID = 1L;
 	private List<Acheteur> listeAcheteurs = new ArrayList<Acheteur>();
 	private List<Acheteur> fileAttente = new ArrayList<Acheteur>();
@@ -23,13 +23,13 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	private Acheteur acheteurCourant;
 	private EtatVente etatVente;
 	private final int clientMin = 2;
-	
-	
+
+
 	protected VenteImpl() throws RemoteException {
 		super();
 		this.etatVente = EtatVente.ATTENTE;
 	}
-	
+
 	public VenteImpl(Stack<Objet> listeObjets) throws RemoteException {
 		super();
 		this.listeObjets = listeObjets;
@@ -49,7 +49,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 		if(this.fileAttente.size() >= clientMin && this.etatVente == EtatVente.ATTENTE){
 			this.etatVente = EtatVente.ENCHERISSEMENT;	
-			
+
 			for(Acheteur each : this.fileAttente){
 				this.listeAcheteurs.add(each);
 				each.objetVendu(null);
@@ -60,12 +60,12 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		return false;
 	}
 
-	
+
 	@Override
 	public synchronized int rencherir(int nouveauPrix, Acheteur acheteur) throws Exception{
 		this.enchereTemp.put(acheteur, nouveauPrix);
 		System.out.println(this.enchereTemp.size()+"/"+this.listeAcheteurs.size());
-		
+
 		//On a recu toutes les encheres
 		if(this.enchereTemp.size() == this.listeAcheteurs.size()){
 			if(enchereFinie()){
@@ -82,7 +82,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		return objetCourant.getPrixCourant();
 	}
 
-	
+
 	/**
 	 * Permet de passer à l'objet suivant avec les bons acheteurs et bons objets.
 	 * @throws RemoteException
@@ -91,15 +91,15 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	public int objetSuivant() throws RemoteException, InterruptedException{
 		this.enchereTemp.clear();
 		this.etatVente = EtatVente.ATTENTE;
-		
+
 		if(acheteurCourant != null){
 			this.objetCourant.setDisponible(false);
 			this.objetCourant.setGagnant(this.acheteurCourant.getPseudo());
-			
+
 			//Envoie des resultats finaux pour l'objet courant
 			for(Acheteur each : this.listeAcheteurs){
 				each.objetVendu(this.acheteurCourant.getPseudo());
-				
+
 			}
 		}		
 
@@ -125,9 +125,9 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		}
 		return this.objetCourant.getPrixBase();
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Methode utilitaire permettant d'actualiser le prix de l'objet et le gagnant selon les encheres recues.
 	 * @throws RemoteException
@@ -135,21 +135,21 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	public void actualiserObjet() throws RemoteException{
 		Set<Acheteur> cles = this.enchereTemp.keySet();
 		Iterator<Acheteur> it = cles.iterator();
-		
+
 		while (it.hasNext()){
 			Acheteur cle = it.next();
 			Integer valeur = this.enchereTemp.get(cle);
-			
+
 			if(valeur > this.objetCourant.getPrixCourant() || (valeur == this.objetCourant.getPrixCourant() && cle.getChrono() < acheteurCourant.getChrono())){
 				this.objetCourant.setPrixCourant(valeur);
 				this.acheteurCourant = cle;	
 				this.objetCourant.setGagnant(this.acheteurCourant.getPseudo());
-		   }
+			}
 		}
 		this.enchereTemp.clear();
 	}
-	
-	
+
+
 	/**
 	 * méthode utilitaire qui permet de savoir si les encheres sont finies.
 	 * @return true si on a reçu que des -1, donc si l'enchere est finie, sinon false.
@@ -157,18 +157,18 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	public boolean enchereFinie(){	
 		Set<Acheteur> cles = this.enchereTemp.keySet();
 		Iterator<Acheteur> it = cles.iterator();
-		
+
 		while (it.hasNext()){
 			Acheteur cle = it.next();
 			Integer valeur = this.enchereTemp.get(cle);
-			
+
 			if(valeur != -1){
 				return false;	
-		   }
+			}
 		}
 		return true;
 	}
-	
+
 
 
 	@Override
@@ -178,7 +178,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -227,15 +227,14 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	}
 
 	@Override
-	public List<String> getCatalogue() throws RemoteException {
-		ArrayList<String> catalogue = new ArrayList<>();
+	public String[] getCatalogue() throws RemoteException {
+		String[] catalogue = new String[listeObjets.size()];
+		int i = 0;
 		for (Objet obj : getListeObjets()) {
-			catalogue.add(obj.getNom());
+			catalogue[i] = obj.getNom();
+			++i;
 		}
-		return catalogue;				
+		return catalogue;
 	}
-
-	
-
 
 }

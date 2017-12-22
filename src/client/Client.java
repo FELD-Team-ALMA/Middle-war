@@ -19,7 +19,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	private Objet currentObjet;
 	private EtatClient etat = EtatClient.ATTENTE;
 	private Chrono chrono = new Chrono(1000000, this); // Chrono de 30sc
-	private List<String> catalogue;
+	private String[] catalogue;
 
 	public Client(String pseudo) throws RemoteException {
 		super();
@@ -148,7 +148,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 		this.vue.updateChrono(this.chrono.getTemps(), this.chrono.getTempsFin());
 	}
 	
-	public List<String> getCatalogue() {
+	public String[] getCatalogue() throws RemoteException {
 		return this.catalogue;
 	}
 
