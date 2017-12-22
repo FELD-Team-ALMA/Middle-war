@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -10,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,7 +37,6 @@ public class VueClient extends JFrame implements ActionListener{
 	private JLabel gagnant = new JLabel();
 	private JLabel lblEncherir = new JLabel();
 	private JLabel lblChrono = new JLabel(ParamsConfig.CHRONO);
-	private JLabel lblUtilisateur = new JLabel();
 	//on peut pas choisir le serveur mais on peut au moins afficher ou on va
 	private JLabel lblServer = new JLabel(ParamsConfig.SERVER);
 	private JLabel lblChoixPseudo = new JLabel(ParamsConfig.CHOIX_PSEUDO);
@@ -65,13 +64,7 @@ public class VueClient extends JFrame implements ActionListener{
 	private JPanel cataloguePlaceHolder = new JPanel();
 	
 	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
-	
-
-	public JLabel getLblEncherir() {
-		return lblEncherir;
-	}
-	
-	
+		
 	public void makeInscriptionPanel() {
 		inscriptionPanel = new JPanel();
 		inscriptionPanel.setLayout(new GridBagLayout());
@@ -108,28 +101,14 @@ public class VueClient extends JFrame implements ActionListener{
 		btnInscrire.addActionListener(this);
 	}
 	
-	public void makeVentePanel() throws RemoteException {
+	public void makeVentePanelOLD() throws RemoteException {
 		mainPanel.setLayout(new GridBagLayout());
 		mainPanel.setPreferredSize(new Dimension(ParamsConfig.WINDOW_HEIGHT, ParamsConfig.WINDOW_WIDTH));
 		GridBagConstraints gbc = new GridBagConstraints();
+		
 		//placeholder for tests
 		cataloguePlaceHolder.add(new JLabel("PLACEHOLDER"));
-		/*listCatalogue = new JList<String>(currentClient.getCatalogue());
-		scrollCatalogue = new JScrollPane(listCatalogue);
-		//test
-		//size of the catalogue
-		 */
-		//int height = (int) (ParamsConfig.WINDOW_HEIGHT * 0.65);
-		//int width = (int) (ParamsConfig.WINDOW_WIDTH * 0.25);
-		int height = 200;
-		int width = 360;
-		cataloguePlaceHolder.setPreferredSize(new Dimension(height, width));
-		cataloguePlaceHolder.setMinimumSize(new Dimension(height, width));
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		mainPanel.add(cataloguePlaceHolder, gbc);
+
 		
 		
 		descriptionObjet.setPreferredSize(new Dimension(500,300));
@@ -150,7 +129,8 @@ public class VueClient extends JFrame implements ActionListener{
 		
 		gbc.gridx = 2;
 		mainPanel.add(prixObjet, gbc);
-		
+
+		JLabel lblUtilisateur = new JLabel();
 		gbc.gridx = 3;
 		mainPanel.add(lblUtilisateur, gbc);
 		
@@ -188,7 +168,7 @@ public class VueClient extends JFrame implements ActionListener{
 		btnEncherir.addActionListener(this);
 	}
 
-	public void makeVentePanel2() throws RemoteException {
+	public void makeVentePanel() throws RemoteException {
 		
 		JPanel ventePanel = new JPanel();
 		ventePanel.setLayout(new BorderLayout());
@@ -199,7 +179,7 @@ public class VueClient extends JFrame implements ActionListener{
 		JPanel cataloguePanel = makeCataloguePanel();
 		ventePanel.add(cataloguePanel, BorderLayout.WEST);
 		
-		JPanel buttonPanel = makeButtonPanel();
+		JPanel buttonPanel = makeBottomPanel();
 		ventePanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		mainPanel.add(ventePanel);
@@ -208,22 +188,46 @@ public class VueClient extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * Crée le panel comportant les boutons pour l'interaction
+	 * Crée le panel comportant le bad de l'ihm
+	 * @return
+	 */
+	private JPanel makeBottomPanel() {
+		JPanel bottomPanel = new JPanel();
+
+		//pour soumettre un autre objet
+		bottomPanel.add(btnSoumettreObjet);
+		
+		bottomPanel.add(makeButtonPanel());
+		bottomPanel.add(makeChronoPanel());
+				
+		return bottomPanel;
+	}
+
+	/**
+	 * Crée un panel qui affiche le chrono
+	 * @return
+	 */
+	private Component makeChronoPanel() {
+		JPanel chronoPanel = new JPanel();
+		
+		return chronoPanel;
+	}
+
+
+	/**
+	 * Crée un panel pour les boutons
 	 * @return
 	 */
 	private JPanel makeButtonPanel() {
 		JPanel buttonPanel = new JPanel();
 		//boutons en une ligne alignés horizontalement
-		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
-		
+		buttonPanel.setLayout(new GridLayout(2, 2));
 		buttonPanel.add(btnEncherir);
+		buttonPanel.add(txtEncherir);
 		buttonPanel.add(btnStop);
-		buttonPanel.add(btnSoumettre);
-		buttonPanel.add(btnSoumettreObjet);
-				
+		//buttonPanel.add(txtPseudo);				
 		return buttonPanel;
 	}
-
 
 	/**
 	 * Crée le panel affichant le catalogue
@@ -281,6 +285,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 		// au lancement on crée le panel d'inscription
 		makeInscriptionPanel();
+		
 				
 		this.setContentPane(inscriptionPanel);
 		this.setVisible(true);
@@ -411,20 +416,14 @@ public class VueClient extends JFrame implements ActionListener{
 		frmSoumettre.setVisible(true);
 	}
 	
-	public JPanel getMainPanel() {
-		return mainPanel;
-	}
-
-	public JPanel getInscriptionPanel() {
-		return inscriptionPanel;
-	}
-	
-	public void updateChrono(long temps, long tempsMax){
-		
+	/**
+	 * Met à jour le chronomètre
+	 * @param temps
+	 * @param tempsMax
+	 */
+	public void updateChrono(long temps, long tempsMax){		
 		this.lblChrono.setText("Chrono : "+ temps+"/"+tempsMax);
 	}
 	
-	
-
 
 }
