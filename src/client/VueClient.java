@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -57,7 +58,7 @@ public class VueClient extends JFrame implements ActionListener{
 	
 
 	private JLabel prixObjet = new JLabel();
-	private JLabel descriptionObjet = new JLabel();
+	private JTextArea descriptionObjet = new JTextArea();
 
 	//private JList<String> listCatalogue = new JList();
 	//private JScrollPane scrollCatalogue;
@@ -101,7 +102,10 @@ public class VueClient extends JFrame implements ActionListener{
 
 		btnInscrire.addActionListener(this);
 	}
-	
+	/**
+	 * Crée le panel pour l'interface principale d'enchères
+	 * @throws RemoteException
+	 */
 	public void makeVentePanel() throws RemoteException {
 		
 		JPanel ventePanel = new JPanel();
@@ -135,9 +139,9 @@ public class VueClient extends JFrame implements ActionListener{
 		bottomPanel.setLayout(new GridLayout(1,3));
 
 		//pour soumettre un autre objet
-		bottomPanel.add(btnCreerEnchere);		
+		bottomPanel.add(btnCreerEnchere);	
+		bottomPanel.add(makeChronoPanel());	
 		bottomPanel.add(makeButtonPanel());
-		bottomPanel.add(makeChronoPanel());
 				
 		return bottomPanel;
 	}
@@ -179,12 +183,15 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	private JPanel makeCataloguePanel() {
 		//TODO:update with catalogue when catalogue works
-		return new JPanel();
+		JPanel cataloguePanel = new JPanel();
+		cataloguePanel.setBorder(new BevelBorder(BevelBorder.RAISED));
+		return cataloguePanel;
 	}
 
 
 	/**
 	 * Crée le panel affichant les informations sur l'objet en cours de vente
+	 *TODO: régler le problème de largeur sur la description
 	 * @return le panel à afficher
 	 */
 	private JPanel makeObjetPanel() {
@@ -197,8 +204,9 @@ public class VueClient extends JFrame implements ActionListener{
 		objetPanel.setLayout(new GridLayout(rows, columns, horizontalGap, verticalGap));
 		
 		int height = 360;
-		int width = 600;
+		int width = 500;
 		objetPanel.setPreferredSize(new Dimension(height, width));
+		
 		JLabel lblnom = new JLabel(ParamsConfig.LABEL_NOM_OBJET);
 		JLabel lblDescription = new JLabel(ParamsConfig.LABEL_DESCRIPTION);
 		JLabel lblPrixActuel = new JLabel(ParamsConfig.LABEL_PRIX_ACTUEL);
@@ -208,6 +216,8 @@ public class VueClient extends JFrame implements ActionListener{
 		objetPanel.add(nomObjet);
 		
 		objetPanel.add(lblDescription);
+		descriptionObjet.setEditable(false);
+		descriptionObjet.setLineWrap(true);
 		objetPanel.add(descriptionObjet);
 		
 		objetPanel.add(lblPrixActuel);

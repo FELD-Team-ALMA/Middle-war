@@ -38,7 +38,7 @@ public class ParamsConfig {
 	static String BUTTON_INSCRIPTION = "Inscription";
 	
 	static String BUTTON_ENCHERIR = "Encherir";
-	static String BUTTON_SOUMETTRE_ENCHERE = "Soumettre une enchère";
+	static String BUTTON_SOUMETTRE_ENCHERE = "Soumettre une nouvelle enchère";
 	static String BUTTON_SOUMETTRE_OBJET = "Soumettre un objet"; //"un objet"
 	static String BUTTON_PASSER = "Passer";
 	
