@@ -35,14 +35,16 @@ public class VueClient extends JFrame implements ActionListener{
 	//TODO : mettre à jour les noms pour ceux qui varient
 	private JLabel nomObjet = new JLabel();
 	private JLabel gagnant = new JLabel();
+	
 	private JLabel lblChrono = new JLabel(ParamsConfig.CHRONO);
+	private JLabel chrono = new JLabel();
 	//on peut pas choisir le serveur mais on peut au moins afficher ou on va
 	private JLabel lblServer = new JLabel(ParamsConfig.SERVER);
 	private JLabel lblChoixPseudo = new JLabel(ParamsConfig.CHOIX_PSEUDO);
 
 	private JButton btnEncherir = new JButton(ParamsConfig.BUTTON_ENCHERIR);
 	private JButton btnInscrire = new JButton(ParamsConfig.BUTTON_INSCRIPTION);
-	private JButton btnSoumettre = new JButton(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
+	private JButton btnCreerEnchere = new JButton(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
 	private JButton btnSoumettreObjet = new JButton(ParamsConfig.BUTTON_SOUMETTRE_OBJET);
 	private JButton btnStop = new JButton(ParamsConfig.BUTTON_PASSER);
 	
@@ -109,15 +111,6 @@ public class VueClient extends JFrame implements ActionListener{
 		cataloguePlaceHolder.add(new JLabel("PLACEHOLDER"));
 
 		
-		
-		descriptionObjet.setPreferredSize(new Dimension(500,300));
-		txtEncherir.setPreferredSize(new Dimension(300,40));
-		btnEncherir.setPreferredSize(new Dimension(100,40));
-		btnEncherir.setFont(fontBtn);
-		btnStop.setPreferredSize(new Dimension(100,40));
-		btnStop.setFont(fontBtn);
-		btnSoumettre.setPreferredSize(new Dimension(100,40));
-		btnSoumettre.setFont(fontBtn);
 				
 		//1ere ligne
 		gbc.gridx = 0;
@@ -159,9 +152,9 @@ public class VueClient extends JFrame implements ActionListener{
 		
 		gbc.gridx=6;
 		gbc.gridwidth=1;
-		mainPanel.add(btnSoumettre, gbc);
+		mainPanel.add(btnCreerEnchere, gbc);
 
-		btnSoumettre.addActionListener(this);
+		btnCreerEnchere.addActionListener(this);
 		btnSoumettreObjet.addActionListener(this);
 		btnStop.addActionListener(this);
 		btnEncherir.addActionListener(this);
@@ -182,7 +175,7 @@ public class VueClient extends JFrame implements ActionListener{
 		ventePanel.add(buttonPanel, BorderLayout.SOUTH);
 		
 		//les actionlisteners
-		btnSoumettre.addActionListener(this);
+		btnCreerEnchere.addActionListener(this);
 		btnSoumettreObjet.addActionListener(this);
 		btnStop.addActionListener(this);
 		btnEncherir.addActionListener(this);
@@ -199,7 +192,7 @@ public class VueClient extends JFrame implements ActionListener{
 		bottomPanel.setLayout(new GridLayout(1,3));
 
 		//pour soumettre un autre objet
-		bottomPanel.add(btnSoumettreObjet);		
+		bottomPanel.add(btnCreerEnchere);		
 		bottomPanel.add(makeButtonPanel());
 		bottomPanel.add(makeChronoPanel());
 				
@@ -212,7 +205,8 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	private Component makeChronoPanel() {
 		JPanel chronoPanel = new JPanel();
-		
+		chronoPanel.add(lblChrono);
+		chronoPanel.add(chrono);
 		return chronoPanel;
 	}
 
@@ -252,10 +246,13 @@ public class VueClient extends JFrame implements ActionListener{
 		
 		int rows = 5;
 		int columns = 2;
-		int horizontalGap = 1;
-		int verticalGap = 2;
+		int horizontalGap = 0;
+		int verticalGap = 0;
 		objetPanel.setLayout(new GridLayout(rows, columns, horizontalGap, verticalGap));
 		
+		int height = 360;
+		int width = 600;
+		objetPanel.setPreferredSize(new Dimension(height, width));
 		//les labels qui ne changent pas
 		JLabel lblObjCourant = new JLabel(ParamsConfig.LABEL_OBJET_COURANT);
 		JLabel lblPlaceholder = new JLabel();		
@@ -363,7 +360,7 @@ public class VueClient extends JFrame implements ActionListener{
 			}
 		}
 		
-		else if(arg0.getSource().equals(btnSoumettre)) {
+		else if(arg0.getSource().equals(btnCreerEnchere)) {
 			soumettre();
 		}
 		
@@ -409,6 +406,15 @@ public class VueClient extends JFrame implements ActionListener{
 		frmSoumettre.setSize(400,300);
 		JPanel pnlSoumettre = new JPanel(new GridLayout(3,3));
 		frmSoumettre.add(pnlSoumettre);
+		
+		descriptionObjet.setPreferredSize(new Dimension(500,300));
+		txtEncherir.setPreferredSize(new Dimension(300,40));
+		btnEncherir.setPreferredSize(new Dimension(100,40));
+		btnEncherir.setFont(fontBtn);
+		btnStop.setPreferredSize(new Dimension(100,40));
+		btnStop.setFont(fontBtn);
+		btnCreerEnchere.setPreferredSize(new Dimension(100,40));
+		btnCreerEnchere.setFont(fontBtn);
 		
 		pnlSoumettre.add(new JLabel("Nom de l'objet"));
 		pnlSoumettre.add(new JLabel("Une description de l'objet"));
