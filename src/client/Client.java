@@ -118,7 +118,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 
 	@Override
 	public long getChrono() {
-		return chrono.getTemps();
+		return chrono.getTempsEcoule();
 	}
 
 	public Vente getServeur() {
@@ -143,7 +143,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	}
 
 	public void updateChrono(){
-		this.vue.updateChrono(this.chrono.getTemps(), this.chrono.getTempsFin());
+		this.vue.updateChrono(this.getDisplayableTime());
 	}
 	
 	public String[] getCatalogue() throws RemoteException {
@@ -156,22 +156,25 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	 * @return
 	 */	
 	public String getDisplayableTime() {
-		int totalSecondes = (int) (this.chrono.getTemps()/ 1000);
+		long timeLeft = this.chrono.getTempsFin() - this.chrono.getTempsEcoule();
+		int totalSecondes = (int) (timeLeft / 1000);
 		int secondes = 0;
 		int minutes = 0;
-		int heures = 0;
+		//int heures = 0;
 		while (totalSecondes > 60 ) {
 			minutes ++;
 			totalSecondes = totalSecondes -60;
 		}
 		secondes = totalSecondes;
+		/*
 		while (minutes > 60) {
 			heures++;
 			minutes = minutes -60;
 		}
+		*/
 		StringBuilder sb = new StringBuilder();
-		sb.append(Integer.toString(heures));
-		sb.append(" heure(s), ");
+		//sb.append(Integer.toString(heures));
+		//sb.append(" heure(s), ");
 		sb.append(Integer.toString(minutes));
 		sb.append(" minute(s) et ");
 		sb.append(Integer.toString(secondes));

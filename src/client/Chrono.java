@@ -42,7 +42,7 @@ public class Chrono extends Thread {
 
 
 	
-	public long getTemps() {
+	public long getTempsEcoule() {
 		return tempsEcoule;
 	}
 

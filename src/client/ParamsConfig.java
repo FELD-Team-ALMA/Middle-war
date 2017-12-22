@@ -19,7 +19,7 @@ public class ParamsConfig {
 	static String LABEL_PRIX_ACTUEL = "Prix Actuel";
 	static String LABEL_GAGNANT = "Gagnant";
 
-	static String CHRONO = "Chronomètre"; 
+	static String CHRONO = "Temps restant"; 
 	static String CATALOGUE = "Catalogue";
 	
 	
