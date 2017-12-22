@@ -3,6 +3,7 @@ package client;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import serveur.Objet;
 
@@ -205,8 +207,11 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	private Component makeChronoPanel() {
 		JPanel chronoPanel = new JPanel();
+		chronoPanel.setLayout(new FlowLayout());
 		chronoPanel.add(lblChrono);
+		chrono.setText(currentClient.getDisplayableTime());
 		chronoPanel.add(chrono);
+		chronoPanel.setBorder(new BevelBorder(BevelBorder.RAISED));
 		return chronoPanel;
 	}
 
@@ -434,8 +439,8 @@ public class VueClient extends JFrame implements ActionListener{
 	 * @param temps
 	 * @param tempsMax
 	 */
-	public void updateChrono(long temps, long tempsMax){		
-		this.lblChrono.setText("Chrono : "+ temps+"/"+tempsMax);
+	public void updateChrono(String chronoDisplay){		
+		this.chrono.setText(chronoDisplay);
 	}
 	
 
