@@ -36,7 +36,7 @@ public class VueClient extends JFrame implements ActionListener{
 	private JPanel inscriptionPanel;
 	private JPanel mainPanel;
 
-	//TODO : mettre à jour les noms pour ceux qui varient
+	
 	private JLabel nomObjet = new JLabel();
 	private JLabel gagnant = new JLabel();
 
@@ -61,11 +61,6 @@ public class VueClient extends JFrame implements ActionListener{
 
 	private JLabel prixObjet = new JLabel();
 	private JTextArea descriptionObjet = new JTextArea();
-
-	//private JList<String> listCatalogue = new JList();
-	//private JScrollPane scrollCatalogue;
-	//private JLabel lblCatalogue = new JLabel(ParamsConfig.CATALOGUE);
-
 
 	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
 
@@ -118,7 +113,7 @@ public class VueClient extends JFrame implements ActionListener{
 		ventePanel.add(objetPanel, BorderLayout.EAST);
 
 		JPanel cataloguePanel = makeCataloguePanel();
-		ventePanel.add(cataloguePanel, BorderLayout.WEST);
+		ventePanel.add(cataloguePanel, BorderLayout.CENTER);
 
 		JPanel buttonPanel = makeBottomPanel();
 		ventePanel.add(buttonPanel, BorderLayout.SOUTH);
@@ -133,7 +128,7 @@ public class VueClient extends JFrame implements ActionListener{
 	}
 
 	/**
-	 * Crée le panel comportant le bad de l'ihm
+	 * Crée le panel comportant le bas de l'ihm
 	 * @return
 	 */
 	private JPanel makeBottomPanel() {
@@ -181,14 +176,13 @@ public class VueClient extends JFrame implements ActionListener{
 
 	/**
 	 * Crée le panel affichant le catalogue
-	 * TODO: update when the catalogue is displayable
 	 * @return an empty JPanel for now
 	 * @throws RemoteException 
 	 */
 	private JPanel makeCataloguePanel() throws RemoteException {
 		//TODO:update with catalogue when catalogue works
 		JPanel cataloguePanel = new JPanel();
-		cataloguePanel.setBorder(new BevelBorder(BevelBorder.RAISED));
+		cataloguePanel.setBorder(new TitledBorder(ParamsConfig.CATALOGUE));
 		JList<String> catalogueList = new JList<String>(currentClient.getCatalogue());
 		cataloguePanel.add(new JScrollPane(catalogueList));
 		return cataloguePanel;
