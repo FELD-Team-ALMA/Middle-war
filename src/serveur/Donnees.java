@@ -33,7 +33,7 @@ public class Donnees {
 	/**
 	 * Methode permettant l'ajout d'un nouvel objet aux enchere. Ajoute l'objet dans la liste des objets a vendre.
 	 * @param objet l'objet a vendre.
-	 * @throws Exception so l'objet est deja en vente ou si l'acheteur n'est pas encore inscrit.
+	 * @throws Exception si l'objet est deja en vente ou si l'acheteur n'est pas encore inscrit.
 	 */
 	public void ajouterArticle(Objet objet) throws Exception{
 		for(Objet each : this.listeObjets){
@@ -44,6 +44,5 @@ public class Donnees {
 
 		this.listeObjets.add(objet);
 	}
-	
 	
 }
