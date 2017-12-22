@@ -29,13 +29,12 @@ public class VueClient extends JFrame implements ActionListener{
 	// Elements SWING
 	private Font fontBtn = new Font("Serif", Font.PLAIN, 10);
 	
-	private JPanel mainPanel = new JPanel();
 	private JPanel inscriptionPanel;
+	private JPanel mainPanel;
 	
 	//TODO : mettre à jour les noms pour ceux qui varient
 	private JLabel nomObjet = new JLabel();
 	private JLabel gagnant = new JLabel();
-	private JLabel lblEncherir = new JLabel();
 	private JLabel lblChrono = new JLabel(ParamsConfig.CHRONO);
 	//on peut pas choisir le serveur mais on peut au moins afficher ou on va
 	private JLabel lblServer = new JLabel(ParamsConfig.SERVER);
@@ -182,9 +181,13 @@ public class VueClient extends JFrame implements ActionListener{
 		JPanel buttonPanel = makeBottomPanel();
 		ventePanel.add(buttonPanel, BorderLayout.SOUTH);
 		
-		mainPanel.add(ventePanel);
+		//les actionlisteners
+		btnSoumettre.addActionListener(this);
+		btnSoumettreObjet.addActionListener(this);
+		btnStop.addActionListener(this);
+		btnEncherir.addActionListener(this);
 		
-		
+		mainPanel = ventePanel;		
 	}
 	
 	/**
@@ -247,7 +250,11 @@ public class VueClient extends JFrame implements ActionListener{
 	private JPanel makeObjetPanel() {
 		JPanel objetPanel = new JPanel();
 		
-		objetPanel.setLayout(new GridLayout(5, 2));
+		int rows = 5;
+		int columns = 2;
+		int horizontalGap = 1;
+		int verticalGap = 2;
+		objetPanel.setLayout(new GridLayout(rows, columns, horizontalGap, verticalGap));
 		
 		//les labels qui ne changent pas
 		JLabel lblObjCourant = new JLabel(ParamsConfig.LABEL_OBJET_COURANT);
@@ -289,18 +296,20 @@ public class VueClient extends JFrame implements ActionListener{
 				
 		this.setContentPane(inscriptionPanel);
 		this.setVisible(true);
+
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public void actualiserPrix() {
-		prixObjet.setText("Prix courant : " + currentClient.getCurrentObjet().getPrixCourant() + " euros");
-		gagnant.setText("Gagnant : " + this.currentClient.getCurrentObjet().getGagnant());
+		prixObjet.setText(currentClient.getCurrentObjet().getPrixCourant() + " euros");
+		gagnant.setText(this.currentClient.getCurrentObjet().getGagnant());
 		txtEncherir.setText("");
 	}
 	
 	public void actualiserObjet() {
 		Objet objet = currentClient.getCurrentObjet();
-		prixObjet.setText("Prix courant : " + objet.getPrixCourant() + " euros");
-		gagnant.setText("Gagnant : " + objet.getGagnant());
+		prixObjet.setText(objet.getPrixCourant() + " euros");
+		gagnant.setText(objet.getGagnant());
 		descriptionObjet.setText(objet.getDescription());
 		txtEncherir.setText("");
 		
