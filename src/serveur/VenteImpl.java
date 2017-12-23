@@ -20,10 +20,11 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	private List<Acheteur> fileAttente = new ArrayList<Acheteur>();
 	private Map<Acheteur, Integer> enchereTemp = new HashMap<Acheteur, Integer>();
 	private Objet objetCourant;
-	private Stack<Objet> listeObjets;
+	private List<Objet> listeObjets;
 	private Acheteur acheteurCourant;
 	private EtatVente etatVente;
 	private final int clientMin = 2;
+	private int indiceListeObjets = 0;
 
 
 	protected VenteImpl() throws RemoteException {
@@ -110,14 +111,15 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		this.fileAttente.clear();
 
 		//Il y a encore des objets à vendre
-		if(!this.listeObjets.isEmpty()){
-			this.objetCourant = this.listeObjets.pop();
+		if(indiceListeObjets < this.listeObjets.size()){
+			this.objetCourant = this.listeObjets.get(indiceListeObjets);
 			this.objetCourant.setGagnant("");
 			this.etatVente = EtatVente.ENCHERISSEMENT;
 			for(Acheteur each : this.listeAcheteurs){
 				each.objetVendu(null);
 			}
-		} else{
+			this.indiceListeObjets = this.indiceListeObjets + 1;
+		}else{
 			this.etatVente = EtatVente.TERMINE;
 			for(Acheteur each : this.listeAcheteurs){
 				each.finEnchere();
@@ -175,7 +177,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	@Override
 	public void ajouterObjet(Objet objet) throws RemoteException {
 		try {
-			this.listeObjets.push(objet);
+			this.listeObjets.add(objet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -203,7 +205,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 		this.objetCourant = objetCourant;
 	}
 
-	public Stack<Objet> getListeObjets() {
+	public List<Objet> getListeObjets() {
 		return listeObjets;
 	}
 

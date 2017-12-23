@@ -351,7 +351,7 @@ public class VueClient extends JFrame implements ActionListener{
 	public void changerGUI(JPanel vue) throws RemoteException{
 		if(this.currentClient.getCurrentObjet() != null){
 			actualiserObjet();
-			//actualiserCatalogue();
+			actualiserCatalogue();
 		}
 		this.getContentPane().removeAll();
 		this.setContentPane(vue);

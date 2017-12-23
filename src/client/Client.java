@@ -103,6 +103,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 			this.vue.reprise();
 			this.etat = EtatClient.RENCHERI;
 			this.chrono.demarrer();
+			this.updateCatalogue();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -200,7 +201,12 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	 * @throws RemoteException : si fail de connection
 	 */
 	public String[] getCatalogue() throws RemoteException {
+		this.updateCatalogue();
 		return this.catalogue;
+	}
+	
+	public void updateCatalogue() throws RemoteException {
+		this.catalogue = this.serveur.getCatalogue();
 	}
 	
 	/**
