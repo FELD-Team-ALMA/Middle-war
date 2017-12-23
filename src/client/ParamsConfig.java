@@ -44,7 +44,8 @@ public class ParamsConfig {
 	
 	
 	//textes pour les erreurs
-	static String ERROR_TITLE = "Problème";
+	static String ERROR = "Erreur";
+	static String ERROR_PRIX_NOT_INT = "Le prix doit être un entier.";
 	static String ERROR_INSCRIPTION = "Inscription impossible.";
 	static String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	static String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
