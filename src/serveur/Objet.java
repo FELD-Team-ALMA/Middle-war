@@ -4,8 +4,8 @@ import java.io.Serializable;
 /**
  * Classe représentant les objets mis aux enchères. 
  * Implémente Serializable
- * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
- *
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
+ * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */
 public class Objet implements Serializable{
 

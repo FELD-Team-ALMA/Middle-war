@@ -28,7 +28,11 @@ import client.Client;
 import config.ParamsConfig;
 import exceptions.LoginPrisException;
 import serveur.Objet;
-
+/**
+ * 
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
+ * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
+ */
 public class VueClient extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 9070911591784925769L;

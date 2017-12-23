@@ -13,8 +13,8 @@ import ui.VueClient;
  * Classe client, tout les utilisateurs de l'application sont des clients.
  *  Implémente l'interface acheteur.
  *  Ceci est une classe éxécutable.
- * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
- *
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
+ * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */
 public class Client extends UnicastRemoteObject implements IAcheteur {
 
