@@ -3,7 +3,6 @@ package api;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import client.Acheteur;
 import exceptions.LoginPrisException;
 import serveur.Objet;
 /**
@@ -22,7 +21,7 @@ public interface IServeurVente extends Remote {
 	 * @param acheteur
 	 * @throws RemoteException
 	 */
-	public boolean inscriptionAcheteur(String login, Acheteur acheteur) throws RemoteException, LoginPrisException;
+	public boolean inscriptionAcheteur(String login, IAcheteur acheteur) throws RemoteException, LoginPrisException;
 	
 	/**
 	 * Augmente le prix de l'objet a vendre.
@@ -31,7 +30,7 @@ public interface IServeurVente extends Remote {
 	 * @return le nouveau prix de l'objet a vendre
 	 * @throws RemoteException
 	 */
-	public int rencherir(int nouveauPrix, Acheteur acheteur) throws RemoteException, Exception;
+	public int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, Exception;
 	
 
 	/**
