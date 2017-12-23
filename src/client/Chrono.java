@@ -1,5 +1,11 @@
 package client;
 
+/**
+ * Classe décrivant le comportement d'un chronomètre pour les enchères
+ * 
+ * @author  Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ * 
+ */
 public class Chrono extends Thread {
 
 	private Client client;
@@ -7,12 +13,20 @@ public class Chrono extends Thread {
 	private long tempsEcoule;
 	private boolean enCours = false;
 	
+	/**
+	 * Constructeur de la classe Chrono 
+	 * 
+	 * @param secondes : durée maximum 
+	 * @param c : le client associer à chronomètre
+	 */
 	public Chrono(long secondes, Client c) {
 		tempsFin = secondes;
 		client = c;
 	}
 	
-	
+	/**
+	 * Décrémente le chrono si celui-ci est actif (en-cours)
+	 */
 	public void run() {
 		while(true) {
 			if(enCours) {
@@ -41,23 +55,38 @@ public class Chrono extends Thread {
 	
 
 
-	
+	/**
+	 * Récupère le temps écoulé du chrono
+	 * @return long : le temps écoulé.
+	 */
 	public long getTempsEcoule() {
 		return tempsEcoule;
 	}
 
+	/**
+	 * Démarre le chron. Attention ne vérifie pas si celui-ci a déjà démarré. 
+	 */
 	public void demarrer() {
 		enCours = true;
 	}
-	
+	/**
+	 * Stop le chrono. Attention ne vérifie pas si celui-ci est déjà stoppé.
+	 */
 	public void arreter() {
 		enCours = false;
 	}
 	
+	/**
+	 * Regarde si le chrono est entrain de tourner.
+	 * @return boolean : true si le chrono est entrain de tourner. False sinon.
+	 */
 	public boolean getFini() {
 		return enCours;
 	}
-
+	/**
+	 * Récupère le temps au quel le chrono doit s'arrêter.
+	 * @return long : le temps d'arrêt du chrono
+	 */
 	public long getTempsFin() {
 		return tempsFin;
 	}	

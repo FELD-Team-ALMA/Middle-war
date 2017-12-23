@@ -24,7 +24,7 @@ public interface Acheteur extends Remote {
 	 * la plus grosse enchère sur l'objet.
 	 * 
 	 * @param prix = Nouveau prix de l'objet
-	 * @param gagnant = Acheteur ayant mis le nouveau prix. Donc le gagnant si personne rench�rit.
+	 * @param gagnant = Acheteur ayant mis le nouveau prix. Donc le gagnant si personne renchérit.
 	 * @throws RemoteException
 	 */
 	public void nouveauPrix(int prix, Acheteur gagnant) throws RemoteException;
