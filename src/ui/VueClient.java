@@ -1,4 +1,4 @@
-package client;
+package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import client.Client;
+import config.ParamsConfig;
 import exceptions.LoginPrisException;
 import serveur.Objet;
 

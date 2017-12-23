@@ -3,8 +3,11 @@ package client;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import config.ParamsConfig;
 import serveur.Objet;
 import serveur.Vente;
+import ui.VueClient;
 /**
  * Classe client, tout les utilisateurs de l'application sont des clients.
  *  Implémente l'interface acheteur.
