@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.ConnectException;
@@ -241,10 +240,8 @@ public class VueClient extends JFrame implements ActionListener{
 		// au lancement on crée le panel d'inscription
 		makeInscriptionPanel();				
 		this.setContentPane(inscriptionPanel);
-
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
-		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
