@@ -75,7 +75,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 		inscriptionPanel = new JPanel();
 		inscriptionPanel.setPreferredSize(new Dimension(500, 240));
-		inscriptionPanel.setLayout(new BoxLayout(inscriptionPanel, BoxLayout.Y_AXIS));
+		inscriptionPanel.setLayout(new GridLayout(4,3));
 		//textfield et bouton pour choisir le pseudo
 		txtPseudo.setMinimumSize(new Dimension(80, 40));
 		txtPseudo.setPreferredSize(labelSize);
