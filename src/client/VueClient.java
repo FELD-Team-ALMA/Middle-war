@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import javax.swing.AbstractButton;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -38,7 +39,7 @@ public class VueClient extends JFrame implements ActionListener{
 	private JPanel inscriptionPanel;
 	private JPanel mainPanel;
 
-	
+
 	private JLabel nomObjet = new JLabel();
 	private JLabel gagnant = new JLabel();
 
@@ -71,7 +72,7 @@ public class VueClient extends JFrame implements ActionListener{
 		//la frame a pas besoin d'être giganormique vu les infos
 		this.setSize(new Dimension(300, 150));
 		Dimension labelSize = new Dimension(200,40);
-		
+
 		inscriptionPanel = new JPanel();
 		inscriptionPanel.setPreferredSize(new Dimension(500, 240));
 		inscriptionPanel.setLayout(new BoxLayout(inscriptionPanel, BoxLayout.Y_AXIS));
@@ -79,10 +80,10 @@ public class VueClient extends JFrame implements ActionListener{
 		txtPseudo.setMinimumSize(new Dimension(80, 40));
 		txtPseudo.setPreferredSize(labelSize);
 		txtPseudo.setAlignmentX(AbstractButton.CENTER);
-		
+
 		btnInscrire.setPreferredSize(labelSize);
 		btnInscrire.setAlignmentX(AbstractButton.CENTER);
-		
+
 		lblServer.setPreferredSize(labelSize);
 
 		inscriptionPanel.add(lblServer);
@@ -263,7 +264,7 @@ public class VueClient extends JFrame implements ActionListener{
 			nomObjet.setText(objet.getNom() + "(vendu)");
 		}
 	}
-	
+
 	/**
 	 * Met à jour l'affichage du catalogue
 	 * @throws RemoteException 
@@ -311,9 +312,7 @@ public class VueClient extends JFrame implements ActionListener{
 				makeVentePanel();
 				changerGUI(this.mainPanel);
 			} catch (Exception e) {
-				e.printStackTrace();
-
-				System.out.println("Inscription impossible");
+				afficheMessage(ParamsConfig.ERROR_INSCRIPTION, ParamsConfig.ERROR_TITLE);
 			}
 		}
 		//Bouton pour créer un objet à soumettre aux enchères
@@ -326,8 +325,7 @@ public class VueClient extends JFrame implements ActionListener{
 			try {
 				currentClient.nouvelleSoumission(txtSoumettreNomObjet.getText(), txtSoumettreDescriptionObjet.getText(), Integer.parseInt(txtSoumettrePrixObjet.getText()));
 			} catch (NumberFormatException e) {
-				System.out.println("Impossible de soumettre cet objet.");
-
+				afficheMessage(ParamsConfig.ERROR_SOUMISSION_OBJET, ParamsConfig.ERROR_TITLE);
 			}
 			frmSoumettre.dispose();
 		}
@@ -396,6 +394,35 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	public void updateChrono(String chronoDisplay){		
 		this.chrono.setText(chronoDisplay);
+	}
+
+	/**
+	 * Affiche des messages d'erreurs à part
+	 * @param message : le message 
+	 * @param type : le type de message (sert de titre)
+	 */
+	public void afficheMessage(String message, String type) {
+		JDialog dialog = new JDialog();
+		dialog.setTitle(type);
+		JPanel messagePanel = new JPanel();
+		messagePanel.add(new JLabel(message));
+		dialog.add(messagePanel);
+		JPanel buttonPanel = new JPanel();
+		JButton button = new JButton("OK"); 
+		buttonPanel.add(button); 
+		//une classe anonyme pour gérer juste la fermeture par le bouton ok du message
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(arg0.getSource().equals(button)){
+					dialog.dispose();
+				}
+			}	    	
+		});
+		dialog.add(buttonPanel, BorderLayout.SOUTH);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		dialog.pack(); 
+		dialog.setVisible(true);
 	}
 
 }
