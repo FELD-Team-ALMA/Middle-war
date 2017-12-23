@@ -2,20 +2,33 @@ package serveur;
 
 import java.util.Stack;
 
-
+/**
+ * Classe Donnes : stock les objets d'une enchère.
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ *
+ */
 public class Donnees {
 
 	private Stack<Objet> listeObjets = new Stack<Objet>();
-
+	/**
+	 * Get la liste d'objet.
+	 * @return Stack<Objet> : la liste d'objet
+	 */
 	public Stack<Objet> getListeObjets() {
 		return listeObjets;
 	}
-
+	/**
+	 * Set la liste d'objet
+	 * @param listeObjets : la nouvelle liste d'objet
+	 */
 	public void setListeObjets(Stack<Objet> listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 
-	
+	/**
+	 * Initialise la liste d'objet avec 3 objets bidon : jarre, herisson et lit.
+	 * L'enchère commencera avec "lit".
+	 */
 	//TODO a virer par la suite
 	public void initObjets(){
 		Objet obj1 = new Objet("jarre","jarre de ramses 3", 250);
