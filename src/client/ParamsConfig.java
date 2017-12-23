@@ -11,7 +11,6 @@ public class ParamsConfig {
 	static int WINDOW_HEIGHT = 800;
 	static int WINDOW_WIDTH = 600;
 	static String WINDOW_TITLE = "Vente aux Enchères";
-	static Font BUTTON_FONT = new Font("Serif", Font.PLAIN, 10);
 	
 	//temps du chrono en ms
 	static int CHRONO_TIME = 1000000;
