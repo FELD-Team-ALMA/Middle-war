@@ -5,8 +5,8 @@ import java.rmi.RemoteException;
 
 /**
  * Interface décrivant le comportement d'un acheteur.
- * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
- * 
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
+ * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */
 public interface IAcheteur extends Remote {
 

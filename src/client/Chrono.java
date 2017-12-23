@@ -3,8 +3,8 @@ package client;
 /**
  * Classe décrivant le comportement d'un chronomètre pour les enchères
  * 
- * @author  Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
- * 
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
+ * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */
 public class Chrono extends Thread {
 
