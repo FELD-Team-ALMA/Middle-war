@@ -38,6 +38,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 	private JPanel inscriptionPanel;
 	private JPanel mainPanel;
+	private JPanel cataloguePanel;
 
 
 	private JLabel nomObjet = new JLabel();
@@ -70,7 +71,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 	public void makeInscriptionPanel() {
 		//la frame a pas besoin d'être giganormique vu les infos
-		this.setSize(new Dimension(500, 150));
+		this.setSize(new Dimension(300, 150));
 		Dimension labelSize = new Dimension(200,40);
 
 		inscriptionPanel = new JPanel();
@@ -177,8 +178,7 @@ public class VueClient extends JFrame implements ActionListener{
 	 * @throws RemoteException 
 	 */
 	private JPanel makeCataloguePanel() throws RemoteException {
-		//TODO:update with catalogue when catalogue works
-		JPanel cataloguePanel = new JPanel();
+		cataloguePanel = new JPanel();
 		cataloguePanel.setBorder(new TitledBorder(ParamsConfig.CATALOGUE));
 		catalogueList = new JList<String>(currentClient.getCatalogue());
 		cataloguePanel.add(new JScrollPane(catalogueList));
@@ -380,11 +380,8 @@ public class VueClient extends JFrame implements ActionListener{
 		descriptionObjet.setPreferredSize(new Dimension(500,300));
 		txtEncherir.setPreferredSize(new Dimension(300,40));
 		btnEncherir.setPreferredSize(new Dimension(100,40));
-		btnEncherir.setFont(ParamsConfig.BUTTON_FONT);
 		btnStop.setPreferredSize(new Dimension(100,40));
-		btnStop.setFont(ParamsConfig.BUTTON_FONT);
 		btnCreerEnchere.setPreferredSize(new Dimension(100,40));
-		btnCreerEnchere.setFont(ParamsConfig.BUTTON_FONT);
 
 		pnlSoumettre.add(new JLabel(ParamsConfig.LABEL_NOM_OBJET));
 		pnlSoumettre.add(new JLabel(ParamsConfig.LABEL_DESCRIPTION));
@@ -434,6 +431,10 @@ public class VueClient extends JFrame implements ActionListener{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		dialog.pack(); 
 		dialog.setVisible(true);
+	}
+	public void updateCatalogue(String[] catalogue) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
