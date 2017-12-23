@@ -7,6 +7,7 @@ import java.awt.Font;
  * 
  */
 public class ParamsConfig {
+	
 	static int WINDOW_HEIGHT = 800;
 	static int WINDOW_WIDTH = 600;
 	static String WINDOW_TITLE = "Vente aux Enchères";
@@ -45,6 +46,8 @@ public class ParamsConfig {
 	
 	//textes pour les erreurs
 	static String ERROR_TITLE = "Problème";
+	static String ERROR_INSCRIPTION = "Inscription Impossible";
+	static String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	
 	
 	
