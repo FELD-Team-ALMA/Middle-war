@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
-
 import api.IServeurVente;
 import client.Acheteur;
 import exceptions.LoginPrisException;
@@ -29,7 +27,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	private List<Acheteur> fileAttente = new ArrayList<Acheteur>();
 	private Map<Acheteur, Integer> enchereTemp = new HashMap<Acheteur, Integer>();
 	private Objet objetCourant;
-	private Stack<Objet> listeObjets;
+	private List<Objet> listeObjets;
 	private Acheteur acheteurCourant;
 	private EtatVente etatVente;
 	private final int clientMin = 2;
@@ -51,10 +49,11 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	 * @param listeObjets : la liste d'objet de départ.
 	 * @throws RemoteException : fail de connection
 	 */
-	public ServeurVente(Stack<Objet> listeObjets) throws RemoteException {
+	public ServeurVente(List<Objet> listeObjets) throws RemoteException {
 		super();
 		this.listeObjets = listeObjets;
-		this.objetCourant = listeObjets.pop();
+		this.objetCourant = listeObjets.get(0);
+		listeObjets.remove(0);
 		this.etatVente = EtatVente.ATTENTE;
 	}
 
@@ -131,7 +130,8 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 		//Il y a encore des objets à vendre
 		if(!this.listeObjets.isEmpty()){
-			this.objetCourant = this.listeObjets.pop();
+			this.objetCourant = this.listeObjets.get(0);
+			this.listeObjets.remove(0);
 			this.objetCourant.setGagnant("");
 			this.etatVente = EtatVente.ENCHERISSEMENT;
 			for(Acheteur each : this.listeAcheteurs){
@@ -195,7 +195,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	@Override
 	public void ajouterObjet(Objet objet) throws RemoteException {
 		try {
-			this.listeObjets.push(objet);
+			this.listeObjets.add(objet);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -223,11 +223,11 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 		this.objetCourant = objetCourant;
 	}
 
-	public Stack<Objet> getListeObjets() {
+	public List<Objet> getListeObjets() {
 		return listeObjets;
 	}
 
-	public void setListeObjets(Stack<Objet> listeObjets) {
+	public void setListeObjets(List<Objet> listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 

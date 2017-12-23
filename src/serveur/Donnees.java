@@ -1,6 +1,7 @@
 package serveur;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Classe Donnes : stock les objets d'une enchère.
@@ -9,19 +10,19 @@ import java.util.Stack;
  */
 public class Donnees {
 
-	private Stack<Objet> listeObjets = new Stack<Objet>();
+	private List<Objet> listeObjets = new ArrayList<Objet>();
 	/**
 	 * Get la liste d'objet.
 	 * @return Stack<Objet> : la liste d'objet
 	 */
-	public Stack<Objet> getListeObjets() {
+	public List<Objet> getListeObjets() {
 		return listeObjets;
 	}
 	/**
 	 * Set la liste d'objet
 	 * @param listeObjets : la nouvelle liste d'objet
 	 */
-	public void setListeObjets(Stack<Objet> listeObjets) {
+	public void setListeObjets(List<Objet> listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 
@@ -35,9 +36,9 @@ public class Donnees {
 		Objet obj2 = new Objet("herisson","herisson des bois", 100);
 		Objet obj3 = new Objet("lit","un lit tout doux avec lequel on n'a pas envie de se lever le matin", 300);
 		
-		listeObjets.push(obj1);
-		listeObjets.push(obj2);
-		listeObjets.push(obj3);
+		listeObjets.add(obj1);
+		listeObjets.add(obj2);
+		listeObjets.add(obj3);
 	}
 	
 	
