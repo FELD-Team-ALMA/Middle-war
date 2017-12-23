@@ -1,19 +1,20 @@
-package serveur;
+package api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import client.Acheteur;
 import exceptions.LoginPrisException;
+import serveur.Objet;
 /**
- * Classe Vente. Sert de serveur pour l'application.
+ * Classe IServeurVente. Sert de serveur pour l'application.
  * 
  * Extends : Remote
  * 
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
  *
  */
-public interface Vente extends Remote {
+public interface IServeurVente extends Remote {
 
 	/**
 	 * Methode servant a inscrire un acheteur a une vente. Ajoute l'acheteur dans la liste des acheteurs

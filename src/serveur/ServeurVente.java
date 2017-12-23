@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import api.IServeurVente;
 import client.Acheteur;
 import exceptions.LoginPrisException;
 /**
@@ -21,7 +22,7 @@ import exceptions.LoginPrisException;
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
  *
  */
-public class VenteImpl extends UnicastRemoteObject implements Vente{
+public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 	private static final long serialVersionUID = 1L;
 	private List<Acheteur> listeAcheteurs = new ArrayList<Acheteur>();
@@ -39,7 +40,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	 * Ce constructeur crée une VentImpl sans liste d'objet en état ATTENTE
 	 * @throws RemoteException : fail de connection
 	 */
-	protected VenteImpl() throws RemoteException {
+	protected ServeurVente() throws RemoteException {
 		super();
 		this.etatVente = EtatVente.ATTENTE;
 	}
@@ -50,7 +51,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	 * @param listeObjets : la liste d'objet de départ.
 	 * @throws RemoteException : fail de connection
 	 */
-	public VenteImpl(Stack<Objet> listeObjets) throws RemoteException {
+	public ServeurVente(Stack<Objet> listeObjets) throws RemoteException {
 		super();
 		this.listeObjets = listeObjets;
 		this.objetCourant = listeObjets.pop();

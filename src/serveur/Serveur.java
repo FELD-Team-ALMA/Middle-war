@@ -29,7 +29,7 @@ public class Serveur{
 			System.out.println("@ IP : " + InetAddress.getLocalHost());
 			
 			bdd.initObjets();
-			VenteImpl vente = new VenteImpl(bdd.getListeObjets());
+			ServeurVente vente = new ServeurVente(bdd.getListeObjets());
 			LocateRegistry.createRegistry(port);
 			Naming.bind("//localhost:"+port+"/enchere", vente);
 
@@ -39,7 +39,7 @@ public class Serveur{
 			//On recrée une nouvelle vente
 			if(vente.getEtatVente() == EtatVente.TERMINE){
 				bdd.initObjets();
-				vente = new VenteImpl(bdd.getListeObjets());
+				vente = new ServeurVente(bdd.getListeObjets());
 			}
 			
 		}

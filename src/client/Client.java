@@ -4,9 +4,9 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import api.IServeurVente;
 import config.ParamsConfig;
 import serveur.Objet;
-import serveur.Vente;
 import ui.VueClient;
 /**
  * Classe client, tout les utilisateurs de l'application sont des clients.
@@ -21,7 +21,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 
 	private String pseudo;
 	private VueClient vue;
-	private Vente serveur;
+	private IServeurVente serveur;
 	private Objet currentObjet;
 	private EtatClient etat = EtatClient.ATTENTE;
 	private Chrono chrono = new Chrono(ParamsConfig.CHRONO_TIME, this);
@@ -43,9 +43,9 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	 * Methode static connectant le client au serveur.
 	 * @return Vente :le serveur de vente auquel le client se connecte. Si connection fail : return null et signal l'erreur + print la stack.
 	 */
-	public static Vente connexionServeur() {
+	public static IServeurVente connexionServeur() {
 		try {
-			Vente serveur = (Vente) Naming.lookup("//" + ParamsConfig.ADRESSE_SERVEUR);
+			IServeurVente serveur = (IServeurVente) Naming.lookup("//" + ParamsConfig.ADRESSE_SERVEUR);
 			System.out.println("Connexion au serveur " + ParamsConfig.ADRESSE_SERVEUR + " reussi.");
 			return serveur;
 		} catch (Exception e) {
@@ -162,14 +162,14 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	 * get le serveur
 	 * @return Vente : le serveur
 	 */
-	public Vente getServeur() {
+	public IServeurVente getServeur() {
 		return serveur;
 	}
 	/**
 	 * set le sereur
 	 * @param serveur : le nouveau serveur
 	 */
-	public void setServeur(Vente serveur) {
+	public void setServeur(IServeurVente serveur) {
 		this.serveur = serveur;
 	}
 	/**
