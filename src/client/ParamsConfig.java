@@ -46,9 +46,10 @@ public class ParamsConfig {
 	
 	//textes pour les erreurs
 	static String ERROR_TITLE = "Problème";
-	static String ERROR_INSCRIPTION = "Inscription Impossible";
+	static String ERROR_INSCRIPTION = "Inscription impossible.";
 	static String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	static String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
+	static String ERROR_CONNEXION = "Connexion au serveur impossible.";
 	
 	
 	

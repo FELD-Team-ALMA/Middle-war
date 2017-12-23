@@ -4,11 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 
 import javax.swing.AbstractButton;
@@ -228,7 +227,10 @@ public class VueClient extends JFrame implements ActionListener{
 	}
 
 
-	public VueClient() throws Exception {
+	/**
+	 * Constructeur de la frame
+	 */
+	public VueClient() {
 		super();
 
 		//Definition de la fenêtre
@@ -312,6 +314,9 @@ public class VueClient extends JFrame implements ActionListener{
 				currentClient.inscription();
 				makeVentePanel();
 				changerGUI(this.mainPanel);
+			}
+			catch (ConnectException e) {
+				afficheMessage(ParamsConfig.ERROR_CONNEXION, ParamsConfig.ERROR_TITLE);
 			} 
 			catch (LoginPrisException e) {
 				afficheMessage(ParamsConfig.ERROR_INSCRIPTION_LOGIN_PRIS, ParamsConfig.ERROR_TITLE);
