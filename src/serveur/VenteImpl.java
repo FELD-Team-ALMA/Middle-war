@@ -12,7 +12,15 @@ import java.util.Stack;
 
 import client.Acheteur;
 import exceptions.LoginPrisException;
-
+/**
+ * Classe VenteImpl. Les VenteImpl servent de serveurs  pour l'application.
+ * 
+ * Extends : UnicastRemoteObject
+ * Implemente : Vente
+ * 
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ *
+ */
 public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 	private static final long serialVersionUID = 1L;
@@ -25,12 +33,23 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	private EtatVente etatVente;
 	private final int clientMin = 2;
 
-
+	/**
+	 * Constructeur de la classe VenteImpl.
+	 * 
+	 * Ce constructeur crée une VentImpl sans liste d'objet en état ATTENTE
+	 * @throws RemoteException : fail de connection
+	 */
 	protected VenteImpl() throws RemoteException {
 		super();
 		this.etatVente = EtatVente.ATTENTE;
 	}
-
+	/**
+	 * Constructeur de la classe VenteImpl
+	 * 
+	 * Ce constructeur crée une VentImpl avec liste d'objet passée en paramètre et en état ATTENTE 
+	 * @param listeObjets : la liste d'objet de départ.
+	 * @throws RemoteException : fail de connection
+	 */
 	public VenteImpl(Stack<Objet> listeObjets) throws RemoteException {
 		super();
 		this.listeObjets = listeObjets;
@@ -86,8 +105,8 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 	/**
 	 * Permet de passer à l'objet suivant avec les bons acheteurs et bons objets.
-	 * @throws RemoteException
-	 * @throws InterruptedException
+	 * @throws RemoteException : fail de connection
+	 * @throws InterruptedException : Si ne termine pas
 	 */
 	public int objetSuivant() throws RemoteException, InterruptedException{
 		this.enchereTemp.clear();
@@ -131,7 +150,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 	/**
 	 * Methode utilitaire permettant d'actualiser le prix de l'objet et le gagnant selon les encheres recues.
-	 * @throws RemoteException
+	 * @throws RemoteException : fail de connection
 	 */
 	public void actualiserObjet() throws RemoteException{
 		Set<Acheteur> cles = this.enchereTemp.keySet();
@@ -186,7 +205,7 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 	public Objet getObjet() throws RemoteException {
 		return this.objetCourant;
 	}
-
+	
 	public List<Acheteur> getListeAcheteurs() {
 		return listeAcheteurs;
 	}

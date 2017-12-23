@@ -5,7 +5,14 @@ import java.rmi.RemoteException;
 
 import client.Acheteur;
 import exceptions.LoginPrisException;
-
+/**
+ * Classe Vente. Sert de serveur pour l'application.
+ * 
+ * Extends : Remote
+ * 
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ *
+ */
 public interface Vente extends Remote {
 
 	/**
