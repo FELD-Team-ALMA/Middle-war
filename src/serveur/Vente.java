@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import client.Acheteur;
+import exceptions.LoginPrisException;
 
 public interface Vente extends Remote {
 
@@ -12,8 +13,9 @@ public interface Vente extends Remote {
 	 * @param login 
 	 * @param acheteur
 	 * @throws RemoteException
+	 * @throws  
 	 */
-	public boolean inscriptionAcheteur(String login, Acheteur acheteur) throws RemoteException, Exception;
+	public boolean inscriptionAcheteur(String login, Acheteur acheteur) throws RemoteException, LoginPrisException;
 	
 	/**
 	 * Augmente le prix de l'objet a vendre.

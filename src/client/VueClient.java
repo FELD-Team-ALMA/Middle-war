@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import exceptions.LoginPrisException;
 import serveur.Objet;
 
 public class VueClient extends JFrame implements ActionListener{
@@ -311,9 +312,14 @@ public class VueClient extends JFrame implements ActionListener{
 				currentClient.inscription();
 				makeVentePanel();
 				changerGUI(this.mainPanel);
-			} catch (Exception e) {
-				afficheMessage(ParamsConfig.ERROR_INSCRIPTION, ParamsConfig.ERROR_TITLE);
+			} 
+			catch (LoginPrisException e) {
+				afficheMessage(ParamsConfig.ERROR_INSCRIPTION_LOGIN_PRIS, ParamsConfig.ERROR_TITLE);
 			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		//Bouton pour créer un objet à soumettre aux enchères
 		else if(arg0.getSource().equals(btnCreerEnchere)) {

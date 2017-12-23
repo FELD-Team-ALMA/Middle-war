@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import client.Acheteur;
+import exceptions.LoginPrisException;
 
 public class VenteImpl extends UnicastRemoteObject implements Vente{
 
@@ -39,10 +40,10 @@ public class VenteImpl extends UnicastRemoteObject implements Vente{
 
 
 	@Override
-	public synchronized boolean inscriptionAcheteur(String login, Acheteur acheteur) throws Exception{
+	public synchronized boolean inscriptionAcheteur(String login, Acheteur acheteur) throws LoginPrisException, RemoteException{
 		for(Acheteur each : listeAcheteurs){
 			if(each.getPseudo().equals(login) || each.getPseudo().equals(acheteur.getPseudo())){
-				throw new Exception("Login deja pris");
+				throw new LoginPrisException("Login deja pris");
 			}
 		}			
 		this.fileAttente.add(acheteur);
