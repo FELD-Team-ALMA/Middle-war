@@ -1,4 +1,4 @@
-package client;
+package api;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
  * 
  */
-public interface Acheteur extends Remote {
+public interface IAcheteur extends Remote {
 
 	/**
 	 * Vend l'objet au gagnant de l'enchère.
@@ -27,7 +27,7 @@ public interface Acheteur extends Remote {
 	 * @param gagnant = Acheteur ayant mis le nouveau prix. Donc le gagnant si personne renchérit.
 	 * @throws RemoteException
 	 */
-	public void nouveauPrix(int prix, Acheteur gagnant) throws RemoteException;
+	public void nouveauPrix(int prix, IAcheteur gagnant) throws RemoteException;
 	
 	/**
 	 * Met fin à une enchère

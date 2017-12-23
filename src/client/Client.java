@@ -4,6 +4,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import api.IAcheteur;
 import api.IServeurVente;
 import config.ParamsConfig;
 import serveur.Objet;
@@ -15,7 +16,7 @@ import ui.VueClient;
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
  *
  */
-public class Client extends UnicastRemoteObject implements Acheteur {
+public class Client extends UnicastRemoteObject implements IAcheteur {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,7 +99,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	}
 
 	@Override
-	public void nouveauPrix(int prix, Acheteur gagnant) throws RemoteException {
+	public void nouveauPrix(int prix, IAcheteur gagnant) throws RemoteException {
 		try {
 			this.currentObjet.setPrixCourant(prix);
 			this.currentObjet.setGagnant(gagnant.getPseudo());
