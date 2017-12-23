@@ -68,7 +68,7 @@ public class VueClient extends JFrame implements ActionListener{
 	private JTextArea descriptionObjet = new JTextArea();
 	private JList<String> catalogueList;
 
-	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
+	private JFrame frmSoumettre;
 
 	public void makeInscriptionPanel() {
 		//la frame a pas besoin d'être giganormique vu les infos
@@ -274,10 +274,9 @@ public class VueClient extends JFrame implements ActionListener{
 	 * @throws RemoteException 
 	 * 
 	 */
-	public void actualiserCatalogue() throws RemoteException {
+	public void updateCatalogue(String[] catalogue) throws RemoteException {
 		String[] catalogue2 = currentClient.getCatalogue();
-		catalogueList = new JList<String>(catalogue2);
-		catalogueList.repaint();
+		catalogueList.setListData(catalogue2);
 	}
 
 	private void setClient(Client client) {
@@ -292,7 +291,13 @@ public class VueClient extends JFrame implements ActionListener{
 			if(!txtEncherir.getText().isEmpty()){
 				try {	
 					currentClient.encherir(Integer.parseInt(txtEncherir.getText()));
-				} catch (Exception e) {
+				}
+				//distinguer une erreur d'entrée d'une erreur autre (et pas casser le programme dessus)
+				catch (NumberFormatException e) {
+					afficheMessage(ParamsConfig.ERROR_PRIX_NOT_INT, ParamsConfig.ERROR);
+				}
+				catch (Exception e) {
+
 					e.printStackTrace();
 				}
 			}
@@ -307,7 +312,6 @@ public class VueClient extends JFrame implements ActionListener{
 			}
 		}
 
-
 		// INSCRIPTION
 		else if(arg0.getSource().equals(btnInscrire)) {
 			try {
@@ -317,10 +321,10 @@ public class VueClient extends JFrame implements ActionListener{
 				changerGUI(this.mainPanel);
 			}
 			catch (ConnectException e) {
-				afficheMessage(ParamsConfig.ERROR_CONNEXION, ParamsConfig.ERROR_TITLE);
+				afficheMessage(ParamsConfig.ERROR_CONNEXION, ParamsConfig.ERROR);
 			} 
 			catch (LoginPrisException e) {
-				afficheMessage(ParamsConfig.ERROR_INSCRIPTION_LOGIN_PRIS, ParamsConfig.ERROR_TITLE);
+				afficheMessage(ParamsConfig.ERROR_INSCRIPTION_LOGIN_PRIS, ParamsConfig.ERROR);
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -337,8 +341,12 @@ public class VueClient extends JFrame implements ActionListener{
 			try {
 				currentClient.nouvelleSoumission(txtSoumettreNomObjet.getText(), txtSoumettreDescriptionObjet.getText(), Integer.parseInt(txtSoumettrePrixObjet.getText()));
 			} catch (NumberFormatException e) {
-				afficheMessage(ParamsConfig.ERROR_SOUMISSION_OBJET, ParamsConfig.ERROR_TITLE);
+				afficheMessage(ParamsConfig.ERROR_SOUMISSION_OBJET, ParamsConfig.ERROR);
 			}
+			txtSoumettreNomObjet.setText("");
+			txtSoumettreDescriptionObjet.setText("");
+			txtSoumettrePrixObjet.setText("");
+			
 			frmSoumettre.dispose();
 		}
 	}
@@ -352,7 +360,6 @@ public class VueClient extends JFrame implements ActionListener{
 	public void changerGUI(JPanel vue) throws RemoteException{
 		if(this.currentClient.getCurrentObjet() != null){
 			actualiserObjet();
-			//actualiserCatalogue();
 		}
 		this.getContentPane().removeAll();
 		this.setContentPane(vue);
@@ -374,6 +381,7 @@ public class VueClient extends JFrame implements ActionListener{
 	 * Peuple la frame pour soumettre un nouvel objet à la vente
 	 */
 	private void soumettreNouvelObjet() {
+		frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
 		frmSoumettre.setSize(400,300);
 		JPanel pnlSoumettre = new JPanel(new GridLayout(3,3));
 		frmSoumettre.add(pnlSoumettre);
@@ -433,9 +441,4 @@ public class VueClient extends JFrame implements ActionListener{
 		dialog.pack(); 
 		dialog.setVisible(true);
 	}
-	public void updateCatalogue(String[] catalogue) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

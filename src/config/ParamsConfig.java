@@ -42,8 +42,10 @@ public class ParamsConfig {
 
 
 	//textes pour les erreurs
+	public static final String ERROR = "Erreur";
 	public static final String ERROR_TITLE = "Problème";
 	public static final String ERROR_INSCRIPTION = "Inscription impossible.";
+	public static final String ERROR_PRIX_NOT_INT = "Le prix doit être un entier.";
 	public static final String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	public static final String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
 	public static final String ERROR_CONNEXION = "Connexion au serveur impossible.";
