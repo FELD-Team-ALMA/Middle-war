@@ -131,7 +131,7 @@ public class VueClient extends JFrame implements ActionListener{
 	}
 
 	/**
-	 * Crée le panel comportant le bas de l'ihm
+	 * Crée le panel comportant le bas de l'IHM
 	 * @return
 	 */
 	private JPanel makeBottomPanel() {
@@ -357,8 +357,8 @@ public class VueClient extends JFrame implements ActionListener{
 
 
 	/**
-	 * Methode servant a changer l affichage pour le panel passe en parametre.
-	 * @param vue le JPanel a afficher.
+	 * Méthode servant à changer l'affichage pour le panel passe en paramètre.
+	 * @param vue le JPanel à afficher.
 	 * @throws RemoteException 
 	 */
 	public void changerGUI(JPanel vue) throws RemoteException{

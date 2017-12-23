@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe Donnes : stock les objets d'une enchère.
+ * Classe Données : stocke les objets d'une enchère.
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
  * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */
@@ -12,22 +12,22 @@ public class Donnees {
 
 	private List<Objet> listeObjets = new ArrayList<Objet>();
 	/**
-	 * Get la liste d'objet.
-	 * @return Stack<Objet> : la liste d'objet
+	 * Récupère la liste d'objets.
+	 * @return List<Objet> : la liste d'objets
 	 */
 	public List<Objet> getListeObjets() {
 		return listeObjets;
 	}
 	/**
-	 * Set la liste d'objet
-	 * @param listeObjets : la nouvelle liste d'objet
+	 * Fixe la liste d'objets
+	 * @param listeObjets : la nouvelle liste d'objets
 	 */
 	public void setListeObjets(List<Objet> listeObjets) {
 		this.listeObjets = listeObjets;
 	}
 
 	/**
-	 * Initialise la liste d'objet avec 3 objets bidon : jarre, herisson et lit.
+	 * Initialise la liste d'objets avec 3 objets bidons : jarre, hérisson et lit.
 	 * L'enchère commencera avec "lit".
 	 */
 	//TODO a virer par la suite
@@ -45,9 +45,9 @@ public class Donnees {
 	
 	
 	/**
-	 * Methode permettant l'ajout d'un nouvel objet aux enchere. Ajoute l'objet dans la liste des objets a vendre.
-	 * @param objet l'objet a vendre.
-	 * @throws Exception si l'objet est deja en vente ou si l'acheteur n'est pas encore inscrit.
+	 * Méthode permettant l'ajout d'un nouvel objet aux enchères. Ajoute l'objet dans la liste des objets à vendre.
+	 * @param objet l'objet à vendre.
+	 * @throws Exception si l'objet est déjà en vente ou si l'acheteur n'est pas encore inscrit.
 	 */
 	public void ajouterArticle(Objet objet) throws Exception{
 		for(Objet each : this.listeObjets){

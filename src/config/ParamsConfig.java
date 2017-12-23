@@ -1,7 +1,7 @@
 package config;
 
 /**
- * For easier config
+ * Pour une configuration plus facile
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
  * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
  */

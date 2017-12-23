@@ -16,7 +16,7 @@ import exceptions.LoginPrisException;
  * Classe VenteImpl. Les VenteImpl servent de serveurs  pour l'application.
  * 
  * Extends : UnicastRemoteObject
- * Implemente : Vente
+ * Implémente : Vente
  * 
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
  * @author Montalvo ARAYA, Charles BEGAUDEAU, Marie DELAVERGNE, Charlène SERVANTIE (FELD-TEAM fork )
@@ -36,8 +36,8 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	/**
 	 * Constructeur de la classe VenteImpl.
 	 * 
-	 * Ce constructeur crée une VentImpl sans liste d'objet en état ATTENTE
-	 * @throws RemoteException : fail de connection
+	 * Ce constructeur crée une VentImpl sans liste d'objets en état ATTENTE
+	 * @throws RemoteException : échec de connexion
 	 */
 	protected ServeurVente() throws RemoteException {
 		super();
@@ -46,9 +46,9 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	/**
 	 * Constructeur de la classe VenteImpl
 	 * 
-	 * Ce constructeur crée une VentImpl avec liste d'objet passée en paramètre et en état ATTENTE 
+	 * Ce constructeur crée une VentImpl avec liste d'objets passée en paramètre et en état ATTENTE 
 	 * @param listeObjets : la liste d'objet de départ.
-	 * @throws RemoteException : fail de connection
+	 * @throws RemoteException : échec de connexion
 	 */
 	public ServeurVente(List<Objet> listeObjets) throws RemoteException {
 		super();
@@ -106,8 +106,8 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 	/**
 	 * Permet de passer à l'objet suivant avec les bons acheteurs et bons objets.
-	 * @throws RemoteException : fail de connection
-	 * @throws InterruptedException : Si ne termine pas
+	 * @throws RemoteException : échec de connexion
+	 * @throws InterruptedException : Si ne se termine pas
 	 */
 	public int objetSuivant() throws RemoteException, InterruptedException{
 		this.enchereTemp.clear();
@@ -151,8 +151,8 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 
 	/**
-	 * Methode utilitaire permettant d'actualiser le prix de l'objet et le gagnant selon les encheres recues.
-	 * @throws RemoteException : fail de connection
+	 * Methode utilitaire permettant d'actualiser le prix de l'objet et le gagnant selon les enchères reçues.
+	 * @throws RemoteException : échec de connexion
 	 */
 	public void actualiserObjet() throws RemoteException{
 		Set<IAcheteur> cles = this.enchereTemp.keySet();
@@ -173,8 +173,8 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 
 	/**
-	 * méthode utilitaire qui permet de savoir si les encheres sont finies.
-	 * @return true si on a reçu que des -1, donc si l'enchere est finie, sinon false.
+	 * méthode utilitaire qui permet de savoir si les enchères sont finies.
+	 * @return true si on a reçu que des -1, donc si l'enchère est finie, sinon false.
 	 */
 	public boolean enchereFinie(){	
 		Set<IAcheteur> cles = this.enchereTemp.keySet();

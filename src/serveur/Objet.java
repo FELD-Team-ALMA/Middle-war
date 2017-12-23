@@ -19,9 +19,8 @@ public class Objet implements Serializable{
 	
 	
 	/**
-	 * Constructeur d'un objet. 
-	 * disponible initialisé à true.
-	 * gagnant initialisé à "" 
+	 * Constructeur d'un objet à mettre aux enchères.
+	 * A sa création, il est disponible et n'a pas d'acheteur gagnant de l'enchère.
 	 * @param nom : nom de l'objet
 	 * @param description : description  de l'objet
 	 * @param prixBase : prix de départ de l'objet
@@ -36,70 +35,70 @@ public class Objet implements Serializable{
 		this.gagnant = "";
 	}
 	/**
-	 * Get Nom de l'objet
+	 * Récupère le nom de l'objet
 	 * @return String : le nom
 	 */
 	public String getNom() {
 		return nom;
 	}
 	/**
-	 * Set nom de l'objet
+	 * Fixe le nom de l'objet
 	 * @param nom : le nouveau nom.
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 	/**
-	 * Get description de l'objet
+	 * Récupère la description de l'objet
 	 * @return String : la déscription
 	 */
 	public String getDescription() {
 		return description;
 	}
 	/**
-	 * Set description de l'objet.
+	 * Fixe la description de l'objet.
 	 * @param description : la nouvelle déscription.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	/**
-	 * Get le prix de base de l'objet
+	 * Récupère le prix de base de l'objet
 	 * @return int : le prix de base
 	 */
 	public int getPrixBase() {
 		return prixBase;
 	}
 	/**
-	 * Set le prix de base de l'objet
+	 * Fixe le prix de base de l'objet
 	 * @param prixBase : le nouveau prix de base
 	 */
 	public void setPrixBase(int prixBase) {
 		this.prixBase = prixBase;
 	}
 	/**
-	 * Dit si l'objet est disponible
-	 * @return boolean : return true si l'objet est dispo. False sinon.
+	 * Retourne si l'objet est disponible ou non
+	 * @return boolean : return true si l'objet est disponible. False sinon.
 	 */
 	public boolean isDisponible() {
 		return disponible;
 	}
 	/**
-	 * Set la disponibilité de l'objet
-	 * @param disponible : true si on veut l'objet dispo. False sinon.
+	 * Fixe la disponibilité de l'objet
+	 * @param disponible : true si on veut l'objet disponible. False sinon.
 	 */
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
 	}
 	/**
-	 * Get le prix courant de l'objet
+	 * Récupère le prix courant de l'objet
 	 * @return int : le prix courant
 	 */
 	public int getPrixCourant() {
 		return prixCourant;
 	}
 	/**
-	 * Set le prix courant de l'objet
+	 * Fixe le prix courant de l'objet
 	 * @param prixCourant : le nouveau prix courant
 	 */
 	public void setPrixCourant(int prixCourant) {
@@ -107,8 +106,8 @@ public class Objet implements Serializable{
 	}
 
 	/**
-	 * Get le gagnant actuelle de l'objet. 
-	 * C'est à dire celui qui va avoir l'objet si personne enchérie.
+	 * Récupère le gagnant actuel de l'objet. 
+	 * Le gagnant est celui qui va avoir l'objet si personne enchérie.
 	 * @return String : le pseudo du gagnant
 	 */
 	public String getGagnant() {
@@ -116,7 +115,7 @@ public class Objet implements Serializable{
 	}
 
 	/**
-	 * Set le gagnant de l'objet
+	 * Fixe le gagnant de l'objet
 	 * @param gagnant : le pseudo du nouveau gagnant.
 	 */
 	public void setGagnant(String gagnant) {
