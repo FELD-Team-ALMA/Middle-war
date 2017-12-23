@@ -66,7 +66,7 @@ public class VueClient extends JFrame implements ActionListener{
 	private JTextArea descriptionObjet = new JTextArea();
 	private JList<String> catalogueList;
 
-	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
+	private JFrame frmSoumettre;
 
 	public void makeInscriptionPanel() {
 		//la frame a pas besoin d'être giganormique vu les infos
@@ -337,6 +337,10 @@ public class VueClient extends JFrame implements ActionListener{
 			} catch (NumberFormatException e) {
 				afficheMessage(ParamsConfig.ERROR_SOUMISSION_OBJET, ParamsConfig.ERROR_TITLE);
 			}
+			txtSoumettreNomObjet.setText("");
+			txtSoumettreDescriptionObjet.setText("");
+			txtSoumettrePrixObjet.setText("");
+			
 			frmSoumettre.dispose();
 		}
 	}
@@ -372,6 +376,7 @@ public class VueClient extends JFrame implements ActionListener{
 	 * Peuple la frame pour soumettre un nouvel objet à la vente
 	 */
 	private void soumettreNouvelObjet() {
+		frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
 		frmSoumettre.setSize(400,300);
 		JPanel pnlSoumettre = new JPanel(new GridLayout(3,3));
 		frmSoumettre.add(pnlSoumettre);
