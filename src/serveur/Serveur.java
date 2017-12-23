@@ -10,7 +10,13 @@ import java.rmi.registry.LocateRegistry;
 
 
 
-
+/**
+ * Classe du serveur. Classe éxécutable à lancer en premier dans l'application pour que le serveur tourne.
+ * 
+ * port du serveur : 8090
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ *
+ */
 public class Serveur{
 
 	private final static int port = 8090;
