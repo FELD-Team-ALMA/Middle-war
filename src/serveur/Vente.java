@@ -13,7 +13,6 @@ public interface Vente extends Remote {
 	 * @param login 
 	 * @param acheteur
 	 * @throws RemoteException
-	 * @throws  
 	 */
 	public boolean inscriptionAcheteur(String login, Acheteur acheteur) throws RemoteException, LoginPrisException;
 	
