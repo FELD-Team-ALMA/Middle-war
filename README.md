@@ -2,9 +2,9 @@
 
 From [Enchere](https://github.com/Gueoff/Enchere). The goal is to make the project better.
 
-## Instructions (récupération de celles du md original)
+## Instructions (récupération de celles du Readme original)
 
-###Utiliser l'application 
+### Utiliser l'application 
 
 L'application possède un serveur et un client.
 
@@ -16,6 +16,6 @@ La vente commence par défaut avec 2 clients. A partir de ce point, d'autres cli
 
 ## Ajout de la part de FELD-Team
 
-Nous listerons ici toutes les améliorations que nous aurons éffectué.
+Nous listerons ici toutes les améliorations que nous aurons effectuées.
 
 * Amélioration de l'interface

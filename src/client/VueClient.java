@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 
+import javax.swing.AbstractButton;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -61,41 +63,32 @@ public class VueClient extends JFrame implements ActionListener{
 
 	private JLabel prixObjet = new JLabel();
 	private JTextArea descriptionObjet = new JTextArea();
+	private JList<String> catalogueList;
 
 	private JFrame frmSoumettre = new JFrame(ParamsConfig.BUTTON_SOUMETTRE_ENCHERE);
 
 	public void makeInscriptionPanel() {
+		//la frame a pas besoin d'être giganormique vu les infos
+		this.setSize(new Dimension(300, 150));
+		Dimension labelSize = new Dimension(200,40);
+		
 		inscriptionPanel = new JPanel();
-		inscriptionPanel.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
-
+		inscriptionPanel.setPreferredSize(new Dimension(500, 240));
+		inscriptionPanel.setLayout(new BoxLayout(inscriptionPanel, BoxLayout.Y_AXIS));
 		//textfield et bouton pour choisir le pseudo
-		txtPseudo.setPreferredSize(new Dimension(400, 40));   
-		btnInscrire.setPreferredSize(new Dimension(100,40));
+		txtPseudo.setMinimumSize(new Dimension(80, 40));
+		txtPseudo.setPreferredSize(labelSize);
+		txtPseudo.setAlignmentX(AbstractButton.CENTER);
+		
+		btnInscrire.setPreferredSize(labelSize);
+		btnInscrire.setAlignmentX(AbstractButton.CENTER);
+		
+		lblServer.setPreferredSize(labelSize);
 
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 3;
-		inscriptionPanel.add(txtPseudo, gbc);
-
-		gbc.gridx = 4;
-		gbc.gridy = 2;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		inscriptionPanel.add(btnInscrire, gbc);
-
-		gbc.gridx = 2;
-		gbc.gridy = 1;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		inscriptionPanel.add(lblChoixPseudo, gbc);
-
-		gbc.gridx = 2;
-		gbc.gridy = 3;
-		gbc.gridheight = 1;
-		gbc.gridwidth = 1;
-		inscriptionPanel.add(lblServer, gbc);
+		inscriptionPanel.add(lblServer);
+		inscriptionPanel.add(lblChoixPseudo);
+		inscriptionPanel.add(txtPseudo);
+		inscriptionPanel.add(btnInscrire);
 
 		btnInscrire.addActionListener(this);
 	}
@@ -104,6 +97,9 @@ public class VueClient extends JFrame implements ActionListener{
 	 * @throws RemoteException
 	 */
 	public void makeVentePanel() throws RemoteException {
+		//on repasse la taille normale
+		this.setSize(ParamsConfig.WINDOW_HEIGHT,ParamsConfig.WINDOW_WIDTH);
+
 
 		JPanel ventePanel = new JPanel();
 		ventePanel.setLayout(new BorderLayout());
@@ -183,7 +179,7 @@ public class VueClient extends JFrame implements ActionListener{
 		//TODO:update with catalogue when catalogue works
 		JPanel cataloguePanel = new JPanel();
 		cataloguePanel.setBorder(new TitledBorder(ParamsConfig.CATALOGUE));
-		JList<String> catalogueList = new JList<String>(currentClient.getCatalogue());
+		catalogueList = new JList<String>(currentClient.getCatalogue());
 		cataloguePanel.add(new JScrollPane(catalogueList));
 		return cataloguePanel;
 	}
@@ -234,7 +230,6 @@ public class VueClient extends JFrame implements ActionListener{
 		super();
 
 		//Definition de la fenêtre
-		this.setSize(ParamsConfig.WINDOW_HEIGHT,ParamsConfig.WINDOW_WIDTH);
 		this.setTitle(ParamsConfig.WINDOW_TITLE);
 
 		// au lancement on crée le panel d'inscription
@@ -267,6 +262,17 @@ public class VueClient extends JFrame implements ActionListener{
 		else{
 			nomObjet.setText(objet.getNom() + "(vendu)");
 		}
+	}
+	
+	/**
+	 * Met à jour l'affichage du catalogue
+	 * @throws RemoteException 
+	 * 
+	 */
+	public void actualiserCatalogue() throws RemoteException {
+		String[] catalogue2 = currentClient.getCatalogue();
+		catalogueList = new JList<String>(catalogue2);
+		catalogueList.repaint();
 	}
 
 	private void setClient(Client client) {
