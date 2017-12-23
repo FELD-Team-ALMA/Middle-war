@@ -5,7 +5,13 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import serveur.Objet;
 import serveur.Vente;
-
+/**
+ * Classe client, tout les utilisateurs de l'application sont des clients.
+ *  Implémente l'interface acheteur.
+ *  Ceci est une classe éxécutable.
+ * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY
+ *
+ */
 public class Client extends UnicastRemoteObject implements Acheteur {
 
 	private static final long serialVersionUID = 1L;
@@ -17,7 +23,11 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	private EtatClient etat = EtatClient.ATTENTE;
 	private Chrono chrono = new Chrono(ParamsConfig.CHRONO_TIME, this);
 	private String[] catalogue;
-
+	/**
+	 * Constructeur du client. Récupère les paramètres autre que le pseudo via le serveur.
+	 * @param pseudo : pseudo de l'acheteur
+	 * @throws RemoteException
+	 */
 	public Client(String pseudo) throws RemoteException {
 		super();
 		this.chrono.start();
@@ -26,7 +36,10 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 		this.currentObjet = serveur.getObjet();
 		this.catalogue = serveur.getCatalogue();
 	}
-
+	/**
+	 * Methode static connectant le client au serveur.
+	 * @return Vente :le serveur de vente auquel le client se connecte. Si connection fail : return null et signal l'erreur + print la stack.
+	 */
 	public static Vente connexionServeur() {
 		try {
 			Vente serveur = (Vente) Naming.lookup("//" + ParamsConfig.ADRESSE_SERVEUR);
@@ -38,13 +51,23 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 			return null;
 		}
 	}
-
+	/**
+	 * Inscrit le client à une vente
+	 * @throws Exception : -RemoteException : si fail de connection au serveur
+	 * 	-LoginPrisException : si le pseudo est déjà pris.
+	 */
 	public void inscription() throws Exception {
 		if(!serveur.inscriptionAcheteur(pseudo, this)){
 			this.vue.attente();
 		}
 	}
-
+	/**
+	 * Encherie sur le prix de l'objet courrant est le met à jours. Attention : si le prix proposé est
+	 * en-dessous du prix actuel la fonction print un message et ne fait rien. 
+	 * @param prix : Le prix proposé.
+	 * @throws RemoteException : si fail de connection
+	 * @throws Exception : en aucun cas.
+	 */
 	public void encherir(int prix) throws RemoteException, Exception {		
 		if (prix <= this.currentObjet.getPrixCourant() && prix != -1) {
 			System.out.println("Prix trop bas, ne soyez pas radin !");
@@ -92,6 +115,12 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 		System.exit(0);
 	}
 	
+	/**
+	 * Soumission d'un nouveau objet au serveur d'enchère
+	 * @param nom : le nom de l'objet
+	 * @param description : déscription de l'objet
+	 * @param prix : le prix de départ de l'enchère sur l'objet
+	 */
 	public void nouvelleSoumission(String nom, String description, int prix) {
 		Objet nouveau = new Objet(nom, description, prix);
 		try {
@@ -101,7 +130,10 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 *  Main de la classe client -> classe éxécutable.
+	 * @param argv
+	 */
 	public static void main(String[] argv) {
 		try {
 			new VueClient();
@@ -110,7 +142,10 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 		}
 	}
 
-	// getters and setters
+	/**
+	 * get l'objet courrant.
+	 * @return Objet : objet courrant
+	 */
 	public Objet getCurrentObjet() {
 		return currentObjet;
 	}
@@ -120,18 +155,31 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 		return chrono.getTempsEcoule();
 	}
 
+	/**
+	 * get le serveur
+	 * @return Vente : le serveur
+	 */
 	public Vente getServeur() {
 		return serveur;
 	}
-
+	/**
+	 * set le sereur
+	 * @param serveur : le nouveau serveur
+	 */
 	public void setServeur(Vente serveur) {
 		this.serveur = serveur;
 	}
-
+	/**
+	 * Set la vueClient (IHM)
+	 * @param vueClient : la nouvelle vue
+	 */
 	public void setVue(VueClient vueClient) {
 		vue = vueClient;
 	}
-
+	/**
+	 * Get l'état
+	 * @return EtatClient : l'état du client -> ATTENTE,RENCHERI,TERMINE
+	 */
 	public EtatClient getEtat() {
 		return this.etat;
 	}
@@ -140,11 +188,17 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	public String getPseudo() throws RemoteException {
 		return pseudo;
 	}
-
+	/**
+	 * Met à jour le chrono dans la vue (IHM)
+	 */
 	public void updateChrono(){
 		this.vue.updateChrono(this.getDisplayableTime());
 	}
-	
+	/**
+	 * récupère le catalogue
+	 * @return String[] : le catalogue
+	 * @throws RemoteException : si fail de connection
+	 */
 	public String[] getCatalogue() throws RemoteException {
 		return this.catalogue;
 	}
@@ -153,7 +207,7 @@ public class Client extends UnicastRemoteObject implements Acheteur {
 	 * Obtient un affichage pour le chrono
 	 * TODO: check for arrondis
 	 * commenté les heures parce que les enchères ne durent pas si longtemps dans l'état du programme
-	 * @return
+	 * @return String : la durée du chrono en String.
 	 */	
 	public String getDisplayableTime() {
 		long timeLeft = this.chrono.getTempsFin() - this.chrono.getTempsEcoule();
