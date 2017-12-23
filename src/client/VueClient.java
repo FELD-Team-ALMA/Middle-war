@@ -11,7 +11,6 @@ import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 
 import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -71,7 +70,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 	public void makeInscriptionPanel() {
 		//la frame a pas besoin d'être giganormique vu les infos
-		this.setSize(new Dimension(300, 150));
+		this.setSize(new Dimension(500, 150));
 		Dimension labelSize = new Dimension(200,40);
 
 		inscriptionPanel = new JPanel();
