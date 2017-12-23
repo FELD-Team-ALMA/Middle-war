@@ -16,7 +16,7 @@ import serveur.Objet;
 public interface IServeurVente extends Remote {
 
 	/**
-	 * Methode servant a inscrire un acheteur a une vente. Ajoute l'acheteur dans la liste des acheteurs
+	 * Méthode servant à inscrire un acheteur à une vente. Ajoute l'acheteur dans la liste des acheteurs
 	 * @param login 
 	 * @param acheteur
 	 * @throws RemoteException
@@ -24,18 +24,18 @@ public interface IServeurVente extends Remote {
 	public boolean inscriptionAcheteur(String login, IAcheteur acheteur) throws RemoteException, LoginPrisException;
 	
 	/**
-	 * Augmente le prix de l'objet a vendre.
-	 * @param nouveauPrix le nouveau prix que le client a donne
-	 * @param acheteur l'acheteur ayant encherit 
-	 * @return le nouveau prix de l'objet a vendre
+	 * Augmente le prix de l'objet à vendre.
+	 * @param nouveauPrix le nouveau prix que le client a donné
+	 * @param acheteur l'acheteur ayant enchéri 
+	 * @return le nouveau prix de l'objet à vendre
 	 * @throws RemoteException
 	 */
 	public int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, Exception;
 	
 
 	/**
-	 * Methode permettant d ajouter un objet aux encheres.
-	 * @param objet l'objet a vendre.
+	 * Méthode permettant d'ajouter un objet aux enchères.
+	 * @param objet l'objet à vendre.
 	 * @throws RemoteException
 	 */
 	public void ajouterObjet(Objet objet) throws RemoteException;

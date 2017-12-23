@@ -17,7 +17,7 @@ public class Chrono extends Thread {
 	 * Constructeur de la classe Chrono 
 	 * 
 	 * @param secondes : durée maximum 
-	 * @param c : le client associer à chronomètre
+	 * @param c : le client associé à chronométrer
 	 */
 	public Chrono(long secondes, Client c) {
 		tempsFin = secondes;
@@ -25,7 +25,7 @@ public class Chrono extends Thread {
 	}
 	
 	/**
-	 * Décrémente le chrono si celui-ci est actif (en-cours)
+	 * Décrémente le chrono si celui-ci est actif (en cours)
 	 */
 	public void run() {
 		while(true) {
@@ -64,7 +64,7 @@ public class Chrono extends Thread {
 	}
 
 	/**
-	 * Démarre le chron. Attention ne vérifie pas si celui-ci a déjà démarré. 
+	 * Démarre le chrono. Attention ne vérifie pas si celui-ci a déjà démarré. 
 	 */
 	public void demarrer() {
 		enCours = true;
@@ -77,14 +77,14 @@ public class Chrono extends Thread {
 	}
 	
 	/**
-	 * Regarde si le chrono est entrain de tourner.
-	 * @return boolean : true si le chrono est entrain de tourner. False sinon.
+	 * Regarde si le chrono est en train de tourner.
+	 * @return boolean : true si le chrono est en train de tourner. False sinon.
 	 */
 	public boolean getFini() {
 		return enCours;
 	}
 	/**
-	 * Récupère le temps au quel le chrono doit s'arrêter.
+	 * Récupère le temps auquel le chrono doit s'arrêter.
 	 * @return long : le temps d'arrêt du chrono
 	 */
 	public long getTempsFin() {

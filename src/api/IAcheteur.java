@@ -13,14 +13,13 @@ public interface IAcheteur extends Remote {
 	/**
 	 * Vend l'objet au gagnant de l'enchère.
 	 * 
-	 * @param gagnant
-	 *            Client qui a gagne l'enchere
+	 * @param gagnant Client qui a gagné l'enchere
 	 * @throws RemoteException
 	 */
 	public void objetVendu(String gagnant) throws RemoteException;
 
 	/**
-	 * Attribut un nouveau prix à un objet pendant une enchère. Met aussi à jour la personne ayant 
+	 * Attribue un nouveau prix à un objet pendant une enchère. Met aussi à jour la personne ayant 
 	 * la plus grosse enchère sur l'objet.
 	 * 
 	 * @param prix = Nouveau prix de l'objet
