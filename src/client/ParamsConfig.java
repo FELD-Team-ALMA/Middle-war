@@ -48,6 +48,7 @@ public class ParamsConfig {
 	static String ERROR_TITLE = "Problème";
 	static String ERROR_INSCRIPTION = "Inscription Impossible";
 	static String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
+	static String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
 	
 	
 	
