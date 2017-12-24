@@ -270,10 +270,10 @@ public class VueClient extends JFrame implements ActionListener{
 		txtEncherir.setText("");
 
 		if (objet.isDisponible()) {
-			nomObjet.setText(objet.getNom() + "(disponible)");
+			nomObjet.setText(objet.getNom() + " (disponible)");
 		}
 		else{
-			nomObjet.setText(objet.getNom() + "(vendu)");
+			nomObjet.setText(objet.getNom() + " (vendu)");
 		}
 	}
 
@@ -380,7 +380,7 @@ public class VueClient extends JFrame implements ActionListener{
 
 
 	/**
-	 * Méthode servant à changer l'affichage pour le panel passe en paramètre.
+	 * Méthode servant à changer l'affichage pour le panel passé en paramètre.
 	 * @param vue le JPanel à afficher.
 	 * @throws RemoteException 
 	 */
