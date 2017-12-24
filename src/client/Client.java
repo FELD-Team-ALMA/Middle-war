@@ -7,6 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import api.IAcheteur;
 import api.IServeurVente;
 import config.ParamsConfig;
+import exceptions.PrixTropBasException;
 import serveur.Objet;
 import ui.VueClient;
 /**
@@ -66,15 +67,15 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 		}
 	}
 	/**
-	 * Enchérit sur le prix de l'objet courant et le met à jour. Attention : si le prix proposé est
-	 * en-dessous du prix actuel la fonction affiche un message et ne fait rien. 
+	 * Enchérit sur le prix de l'objet courant et le met à jour. 
 	 * @param prix : Le prix proposé.
 	 * @throws RemoteException : si fail de connexion
 	 * @throws Exception : en aucun cas.
+	 * @throws PrixTropBasException : si le client propose un prix trop bas
 	 */
-	public void encherir(int prix) throws RemoteException, Exception {		
+	public void encherir(int prix) throws RemoteException, PrixTropBasException, Exception{		
 		if (prix <= this.currentObjet.getPrixCourant() && prix != -1) {
-			System.out.println("Prix trop bas, ne soyez pas radin !");
+			throw new PrixTropBasException();
 		} else if (etat == EtatClient.RENCHERI) {
 			chrono.arreter();
 			vue.attente();
@@ -153,7 +154,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public Objet getCurrentObjet() {
 		return currentObjet;
 	}
-
+	
 	@Override
 	public long getChrono() {
 		return chrono.getTempsEcoule();
@@ -242,14 +243,17 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 		return stringChrono;
 	}
 	
-	
+	/**
+	 * Set le catalogue avec un nouveau catalogue 
+	 * @param newCatalogue
+	 */
 	public void setCatalogue (String[] newCatalogue){
 		this.catalogue = newCatalogue;
 	}
+	
 	@Override
 	public void updateCatalogue(String[] newCatalogue) throws RemoteException {
 		this.setCatalogue(newCatalogue);
 		this.vue.updateCatalogue(newCatalogue);
-		
 	}
 }

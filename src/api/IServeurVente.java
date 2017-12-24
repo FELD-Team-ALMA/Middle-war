@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import exceptions.LoginPrisException;
 import serveur.Objet;
 /**
- * Classe IServeurVente. Sert de serveur pour l'application.
+ * Interface IServeurVente. Sert de serveur pour l'application.
  * 
  * Extends : Remote
  * 

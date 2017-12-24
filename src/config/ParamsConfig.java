@@ -12,7 +12,7 @@ public class ParamsConfig {
 	public static final String WINDOW_TITLE = "Vente aux Enchères";
 
 	//temps du chrono en ms
-	public static final int CHRONO_TIME = 10000;
+	public static final int CHRONO_TIME = 30000;
 
 	//adresse server
 	public static final String ADRESSE_SERVEUR = "localhost:8090/enchere";
@@ -38,7 +38,7 @@ public class ParamsConfig {
 
 	public static final String BUTTON_ENCHERIR = "Encherir";
 	public static final String BUTTON_SOUMETTRE_ENCHERE = "Soumettre une nouvelle enchère";
-	public static final String BUTTON_SOUMETTRE_OBJET = "Soumettre un objet"; //"un objet"
+	public static final String BUTTON_SOUMETTRE_OBJET = "Soumettre un objet";
 	public static final String BUTTON_PASSER = "Passer";
 
 
@@ -50,6 +50,7 @@ public class ParamsConfig {
 	public static final String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	public static final String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
 	public static final String ERROR_CONNEXION = "Connexion au serveur impossible.";
+	public static final String ERROR_PRIX_TROP_BAS = "Le prix doit être supérieur à l'enchère actuelle";
 
 
 

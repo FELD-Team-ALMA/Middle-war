@@ -26,6 +26,7 @@ import javax.swing.border.TitledBorder;
 import client.Client;
 import config.ParamsConfig;
 import exceptions.LoginPrisException;
+import exceptions.PrixTropBasException;
 import serveur.Objet;
 /**
  * 
@@ -300,6 +301,9 @@ public class VueClient extends JFrame implements ActionListener{
 				//distinguer une erreur d'entrée d'une erreur autre (et pas casser le programme dessus)
 				catch (NumberFormatException e) {
 					afficheMessage(ParamsConfig.ERROR_PRIX_NOT_INT, ParamsConfig.ERROR);
+				}
+				catch (PrixTropBasException e) {
+					afficheMessage(ParamsConfig.ERROR_PRIX_TROP_BAS, ParamsConfig.ERROR);
 				}
 				catch (Exception e) {
 
