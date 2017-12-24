@@ -19,3 +19,8 @@ La vente commence par défaut avec 2 clients. A partir de ce point, d'autres cli
 Nous listerons ici toutes les améliorations que nous aurons effectuées.
 
 * Amélioration de l'interface
+* Ajout d'exceptions
+* Refactoring du code pour organiser en packages et extraire des interfaces
+* Documentation javadoc de l'ensemble
+* Ajout d'un catalogue
+* Changement de la gestion d'ordre des enchères (Lifo -> Fifo)

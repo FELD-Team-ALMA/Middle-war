@@ -63,7 +63,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	public synchronized boolean inscriptionAcheteur(String login, IAcheteur acheteur) throws LoginPrisException, RemoteException{
 		for(IAcheteur each : listeAcheteurs){
 			if(each.getPseudo().equals(login) || each.getPseudo().equals(acheteur.getPseudo())){
-				throw new LoginPrisException("Login deja pris");
+				throw new LoginPrisException();
 			}
 		}			
 		this.fileAttente.add(acheteur);
@@ -83,7 +83,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 
 	@Override
-	public synchronized int rencherir(int nouveauPrix, IAcheteur acheteur) throws Exception{
+	public synchronized int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, InterruptedException{
 		this.enchereTemp.put(acheteur, nouveauPrix);
 		System.out.println(this.enchereTemp.size()+"/"+this.listeAcheteurs.size());
 

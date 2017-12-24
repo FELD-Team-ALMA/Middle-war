@@ -12,7 +12,7 @@ public class ParamsConfig {
 	public static final String WINDOW_TITLE = "Vente aux Enchères";
 
 	//temps du chrono en ms
-	public static final int CHRONO_TIME = 10000;
+	public static final int CHRONO_TIME = 30000;
 
 	//adresse server
 	public static final String ADRESSE_SERVEUR = "localhost:8090/enchere";
@@ -31,6 +31,9 @@ public class ParamsConfig {
 
 	public static final String CHRONO = "Temps restant";
 	public static final String CATALOGUE = "Catalogue";
+	
+	//largeur du catalogue
+	public static final int CATALOGUE_WIDTH = 300;
 
 
 	//textes pour les boutons
@@ -38,7 +41,7 @@ public class ParamsConfig {
 
 	public static final String BUTTON_ENCHERIR = "Encherir";
 	public static final String BUTTON_SOUMETTRE_ENCHERE = "Soumettre une nouvelle enchère";
-	public static final String BUTTON_SOUMETTRE_OBJET = "Soumettre un objet"; //"un objet"
+	public static final String BUTTON_SOUMETTRE_OBJET = "Soumettre un objet";
 	public static final String BUTTON_PASSER = "Passer";
 
 
@@ -50,10 +53,11 @@ public class ParamsConfig {
 	public static final String ERROR_SOUMISSION_OBJET = "Impossible de soumettre cet objet.";
 	public static final String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
 	public static final String ERROR_CONNEXION = "Connexion au serveur impossible.";
-
-
-
-
-
+	public static final String ERROR_PRIX_TROP_BAS = "Le prix doit être supérieur à l'enchère actuelle";
+	public static final String ERROR_URL_SERVEUR_DEFAILLANTE = "L'URL du serveur n'est pas bonne.";
+	public static final String ERROR_CONNEXION_IMPOSSIBLE = "La connexion au serveur est impossible.";
+	public static final String ERROR_REMOTE = "Erreur de connexion.";
+	public static final String ERROR_ECHEC_COMMUNICATION_SERVEUR = "Echec de communication avec le serveur.";
+	public static final String ERROR_INTERRUPTION = "Interruption de l'enchère";
 
 }

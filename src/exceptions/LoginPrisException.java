@@ -5,8 +5,8 @@ package exceptions;
  */
 public class LoginPrisException extends Exception {
 
-	public LoginPrisException(String string) {
-		
+	public LoginPrisException() {
+		super();
 	}
 
 	/**

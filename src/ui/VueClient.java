@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 
@@ -25,7 +26,9 @@ import javax.swing.border.TitledBorder;
 
 import client.Client;
 import config.ParamsConfig;
+import exceptions.ConnexionImpossibleException;
 import exceptions.LoginPrisException;
+import exceptions.PrixTropBasException;
 import serveur.Objet;
 /**
  * 
@@ -186,7 +189,9 @@ public class VueClient extends JFrame implements ActionListener{
 		cataloguePanel = new JPanel();
 		cataloguePanel.setBorder(new TitledBorder(ParamsConfig.CATALOGUE));
 		catalogueList = new JList<String>(currentClient.getCatalogue());
-		cataloguePanel.add(new JScrollPane(catalogueList));
+		catalogueList.setFixedCellWidth(ParamsConfig.CATALOGUE_WIDTH);
+		JScrollPane pane = new JScrollPane(catalogueList);
+		cataloguePanel.add(pane);
 		return cataloguePanel;
 	}
 
@@ -237,7 +242,6 @@ public class VueClient extends JFrame implements ActionListener{
 	 */
 	public VueClient() {
 		super();
-
 		//Definition de la fenêtre
 		this.setTitle(ParamsConfig.WINDOW_TITLE);
 
@@ -301,22 +305,35 @@ public class VueClient extends JFrame implements ActionListener{
 				catch (NumberFormatException e) {
 					afficheMessage(ParamsConfig.ERROR_PRIX_NOT_INT, ParamsConfig.ERROR);
 				}
-				catch (Exception e) {
-
-					e.printStackTrace();
+				catch (PrixTropBasException e) {
+					afficheMessage(ParamsConfig.ERROR_PRIX_TROP_BAS, ParamsConfig.ERROR);
+				} 
+				catch (RemoteException e) {
+					afficheMessage(ParamsConfig.ERROR_ECHEC_COMMUNICATION_SERVEUR, ParamsConfig.ERROR);
+				} 
+				catch (InterruptedException e) {
+					//ne devrait normalement pas arriver ? (ou arrive quand l'enchère est finie?)
+					afficheMessage(ParamsConfig.ERROR_INTERRUPTION, ParamsConfig.ERROR);
 				}
 			}
 		}
-
 		//STOP
 		else if(arg0.getSource().equals(this.btnStop)){
 			try {
 				currentClient.encherir(-1);
-			} catch (Exception e) {
-				e.printStackTrace();
+			}
+			catch (RemoteException e) {
+				afficheMessage(ParamsConfig.ERROR_ECHEC_COMMUNICATION_SERVEUR, ParamsConfig.ERROR);
+			}
+			catch (InterruptedException e) {
+				//ne devrait normalement pas arriver ? (ou arrive quand l'enchère est finie?)
+				afficheMessage(ParamsConfig.ERROR_INTERRUPTION, ParamsConfig.ERROR);
+			} 
+			catch (PrixTropBasException e) {
+				//ne doit pas passer dedans (vu qu'on arrête)
+				afficheMessage(ParamsConfig.ERROR_PRIX_TROP_BAS, ParamsConfig.ERROR);
 			}
 		}
-
 		// INSCRIPTION
 		else if(arg0.getSource().equals(btnInscrire)) {
 			try {
@@ -330,28 +347,33 @@ public class VueClient extends JFrame implements ActionListener{
 			} 
 			catch (LoginPrisException e) {
 				afficheMessage(ParamsConfig.ERROR_INSCRIPTION_LOGIN_PRIS, ParamsConfig.ERROR);
+			} 
+			catch (MalformedURLException e) {
+				afficheMessage(ParamsConfig.ERROR_URL_SERVEUR_DEFAILLANTE, ParamsConfig.ERROR);
+			} 
+			catch (ConnexionImpossibleException e) {
+				afficheMessage(ParamsConfig.ERROR_CONNEXION_IMPOSSIBLE, ParamsConfig.ERROR);
+			}		
+			catch (RemoteException e) {
+				afficheMessage(ParamsConfig.ERROR_REMOTE, ParamsConfig.ERROR);
 			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			
 		}
 		//Bouton pour créer un objet à soumettre aux enchères
 		else if(arg0.getSource().equals(btnCreerEnchere)) {
 			soumettreNouvelObjet();
 		}
-
 		//bouton pour envoyer l'objet créé
 		else if(arg0.getSource().equals(btnSoumettreObjet)) {
 			try {
 				currentClient.nouvelleSoumission(txtSoumettreNomObjet.getText(), txtSoumettreDescriptionObjet.getText(), Integer.parseInt(txtSoumettrePrixObjet.getText()));
-			} catch (NumberFormatException e) {
+			} 
+			catch (NumberFormatException e) {
 				afficheMessage(ParamsConfig.ERROR_SOUMISSION_OBJET, ParamsConfig.ERROR);
 			}
 			txtSoumettreNomObjet.setText("");
 			txtSoumettreDescriptionObjet.setText("");
 			txtSoumettrePrixObjet.setText("");
-			
+
 			frmSoumettre.dispose();
 		}
 	}
