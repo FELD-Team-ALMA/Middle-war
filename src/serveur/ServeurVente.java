@@ -83,7 +83,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 
 
 	@Override
-	public synchronized int rencherir(int nouveauPrix, IAcheteur acheteur) throws Exception{
+	public synchronized int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, InterruptedException{
 		this.enchereTemp.put(acheteur, nouveauPrix);
 		System.out.println(this.enchereTemp.size()+"/"+this.listeAcheteurs.size());
 

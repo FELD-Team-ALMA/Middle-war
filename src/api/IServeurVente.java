@@ -29,8 +29,9 @@ public interface IServeurVente extends Remote {
 	 * @param acheteur l'acheteur ayant enchéri 
 	 * @return le nouveau prix de l'objet à vendre
 	 * @throws RemoteException
+	 * @throws InterruptedException 
 	 */
-	public int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, Exception;
+	public int rencherir(int nouveauPrix, IAcheteur acheteur) throws RemoteException, InterruptedException;
 	
 
 	/**

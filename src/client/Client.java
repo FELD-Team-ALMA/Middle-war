@@ -68,8 +68,8 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	}
 	/**
 	 * Inscrit le client à une vente
-	 * @throws Exception : -RemoteException : si problème de connexion au serveur
-	 * 	-LoginPrisException : si le pseudo est déjà pris.
+	 * @throws RemoteException : si problème de connexion au serveur
+	 * @throws LoginPrisException : si le pseudo est déjà pris.
 	 */
 	public void inscription() throws RemoteException, LoginPrisException {
 		if(!serveur.inscriptionAcheteur(pseudo, this)){
@@ -80,13 +80,13 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	 * Enchérit sur le prix de l'objet courant et le met à jour. 
 	 * @param prix : Le prix proposé.
 	 * @throws RemoteException : si fail de connexion
-	 * @throws Exception : en aucun cas.
 	 * @throws PrixTropBasException : si le client propose un prix trop bas
 	 */
-	public void encherir(int prix) throws RemoteException, PrixTropBasException, Exception{		
+	public void encherir(int prix) throws RemoteException, PrixTropBasException, InterruptedException{		
 		if (prix <= this.currentObjet.getPrixCourant() && prix != -1) {
 			throw new PrixTropBasException();
-		} else if (etat == EtatClient.RENCHERI) {
+		} 
+		else if (etat == EtatClient.RENCHERI) {
 			chrono.arreter();
 			vue.attente();
 			etat = EtatClient.ATTENTE;
@@ -100,10 +100,11 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 		this.catalogue = serveur.getCatalogue();
 		this.vue.actualiserObjet();
 		this.vue.reprise();
-		
+
 		if (gagnant != null) { //Fin de l'objet
 			this.etat = EtatClient.ATTENTE;
-		}else{ //inscription & objet suivant
+		}
+		else { //inscription & objet suivant
 			this.etat = EtatClient.RENCHERI;
 			this.chrono.demarrer();
 		}
@@ -111,25 +112,20 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 
 	@Override
 	public void nouveauPrix(int prix, IAcheteur gagnant) throws RemoteException {
-		try {
-			this.currentObjet.setPrixCourant(prix);
-			this.currentObjet.setGagnant(gagnant.getPseudo());
-			this.vue.actualiserPrix();
-			this.vue.reprise();
-			this.etat = EtatClient.RENCHERI;
-			this.chrono.demarrer();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		this.currentObjet.setPrixCourant(prix);
+		this.currentObjet.setGagnant(gagnant.getPseudo());
+		this.vue.actualiserPrix();
+		this.vue.reprise();
+		this.etat = EtatClient.RENCHERI;
+		this.chrono.demarrer();
 	}
-	
+
 	@Override
 	public void finEnchere() throws RemoteException {
 		this.etat = EtatClient.TERMINE;
 		System.exit(0);
 	}
-	
+
 	/**
 	 * Soumission d'un nouveau objet au serveur d'enchère
 	 * @param nom : le nom de l'objet
@@ -164,7 +160,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public Objet getCurrentObjet() {
 		return currentObjet;
 	}
-	
+
 	@Override
 	public long getChrono() {
 		return chrono.getTempsEcoule();
@@ -198,7 +194,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public EtatClient getEtat() {
 		return this.etat;
 	}
-	
+
 	@Override
 	public String getPseudo() throws RemoteException {
 		return pseudo;
@@ -217,7 +213,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public String[] getCatalogue() throws RemoteException {
 		return this.catalogue;
 	}
-	
+
 	/**
 	 * Obtient un affichage pour le chrono
 	 * TODO: check for arrondis
@@ -240,7 +236,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 			heures++;
 			minutes = minutes -60;
 		}
-		*/
+		 */
 		StringBuilder sb = new StringBuilder();
 		//sb.append(Integer.toString(heures));
 		//sb.append(" heure(s), ");
@@ -248,11 +244,11 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 		sb.append(" minute(s) et ");
 		sb.append(Integer.toString(secondes));
 		sb.append(" seconde(s).");
-		
+
 		String stringChrono = sb.toString();
 		return stringChrono;
 	}
-	
+
 	/**
 	 * Set le catalogue avec un nouveau catalogue 
 	 * @param newCatalogue
@@ -260,7 +256,7 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public void setCatalogue (String[] newCatalogue){
 		this.catalogue = newCatalogue;
 	}
-	
+
 	@Override
 	public void updateCatalogue(String[] newCatalogue) throws RemoteException {
 		this.setCatalogue(newCatalogue);

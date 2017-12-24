@@ -189,7 +189,9 @@ public class VueClient extends JFrame implements ActionListener{
 		cataloguePanel = new JPanel();
 		cataloguePanel.setBorder(new TitledBorder(ParamsConfig.CATALOGUE));
 		catalogueList = new JList<String>(currentClient.getCatalogue());
-		cataloguePanel.add(new JScrollPane(catalogueList));
+		catalogueList.setFixedCellWidth(ParamsConfig.CATALOGUE_WIDTH);
+		JScrollPane pane = new JScrollPane(catalogueList);
+		cataloguePanel.add(pane);
 		return cataloguePanel;
 	}
 
@@ -305,9 +307,13 @@ public class VueClient extends JFrame implements ActionListener{
 				}
 				catch (PrixTropBasException e) {
 					afficheMessage(ParamsConfig.ERROR_PRIX_TROP_BAS, ParamsConfig.ERROR);
-				}
-				catch (Exception e) {
-					e.printStackTrace();
+				} 
+				catch (RemoteException e) {
+					afficheMessage(ParamsConfig.ERROR_ECHEC_COMMUNICATION_SERVEUR, ParamsConfig.ERROR);
+				} 
+				catch (InterruptedException e) {
+					//ne devrait normalement pas arriver ? (ou arrive quand l'enchère est finie?)
+					afficheMessage(ParamsConfig.ERROR_INTERRUPTION, ParamsConfig.ERROR);
 				}
 			}
 		}
@@ -315,8 +321,17 @@ public class VueClient extends JFrame implements ActionListener{
 		else if(arg0.getSource().equals(this.btnStop)){
 			try {
 				currentClient.encherir(-1);
-			} catch (Exception e) {
-				e.printStackTrace();
+			}
+			catch (RemoteException e) {
+				afficheMessage(ParamsConfig.ERROR_ECHEC_COMMUNICATION_SERVEUR, ParamsConfig.ERROR);
+			}
+			catch (InterruptedException e) {
+				//ne devrait normalement pas arriver ? (ou arrive quand l'enchère est finie?)
+				afficheMessage(ParamsConfig.ERROR_INTERRUPTION, ParamsConfig.ERROR);
+			} 
+			catch (PrixTropBasException e) {
+				//ne doit pas passer dedans (vu qu'on arrête)
+				afficheMessage(ParamsConfig.ERROR_PRIX_TROP_BAS, ParamsConfig.ERROR);
 			}
 		}
 		// INSCRIPTION

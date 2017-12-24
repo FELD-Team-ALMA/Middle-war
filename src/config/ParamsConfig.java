@@ -31,6 +31,9 @@ public class ParamsConfig {
 
 	public static final String CHRONO = "Temps restant";
 	public static final String CATALOGUE = "Catalogue";
+	
+	//largeur du catalogue
+	public static final int CATALOGUE_WIDTH = 300;
 
 
 	//textes pour les boutons
@@ -54,5 +57,7 @@ public class ParamsConfig {
 	public static final String ERROR_URL_SERVEUR_DEFAILLANTE = "L'URL du serveur n'est pas bonne.";
 	public static final String ERROR_CONNEXION_IMPOSSIBLE = "La connexion au serveur est impossible.";
 	public static final String ERROR_REMOTE = "Erreur de connexion.";
+	public static final String ERROR_ECHEC_COMMUNICATION_SERVEUR = "Echec de communication avec le serveur.";
+	public static final String ERROR_INTERRUPTION = "Interruption de l'enchère";
 
 }
