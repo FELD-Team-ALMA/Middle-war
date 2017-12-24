@@ -124,7 +124,6 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	public void finEnchere() throws RemoteException {
 		this.etat = EtatClient.TERMINE;
 		this.vue.afficheMessage(ParamsConfig.FIN_ENCHERES, ParamsConfig.FIN);
-		//System.exit(0);
 	}
 
 	/**

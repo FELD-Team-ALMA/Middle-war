@@ -12,7 +12,7 @@ public class ParamsConfig {
 	public static final String WINDOW_TITLE = "Vente aux Enchères";
 
 	//temps du chrono en ms
-	public static final int CHRONO_TIME = 10000;
+	public static final int CHRONO_TIME = 30000;
 
 	//adresse server
 	public static final String ADRESSE_SERVEUR = "localhost:8090/enchere";
