@@ -137,6 +137,7 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 			this.etatVente = EtatVente.ENCHERISSEMENT;
 			for(IAcheteur each : this.listeAcheteurs){
 				each.objetVendu(null);
+				each.updateCatalogue(getCatalogue());
 			}
 		} else{
 			this.etatVente = EtatVente.TERMINE;
@@ -197,6 +198,9 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	public void ajouterObjet(Objet objet) throws RemoteException {
 		try {
 			this.listeObjets.add(objet);
+			for(IAcheteur each : this.listeAcheteurs){
+				each.updateCatalogue(getCatalogue());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

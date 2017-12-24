@@ -241,5 +241,15 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 		String stringChrono = sb.toString();
 		return stringChrono;
 	}
-
+	
+	
+	public void setCatalogue (String[] newCatalogue){
+		this.catalogue = newCatalogue;
+	}
+	@Override
+	public void updateCatalogue(String[] newCatalogue) throws RemoteException {
+		this.setCatalogue(newCatalogue);
+		this.vue.updateCatalogue(newCatalogue);
+		
+	}
 }

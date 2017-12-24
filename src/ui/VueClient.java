@@ -279,6 +279,7 @@ public class VueClient extends JFrame implements ActionListener{
 	 * 
 	 */
 	public void updateCatalogue(String[] catalogue) throws RemoteException {
+		currentClient.setCatalogue(catalogue);
 		String[] catalogue2 = currentClient.getCatalogue();
 		catalogueList.setListData(catalogue2);
 	}

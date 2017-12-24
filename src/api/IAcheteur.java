@@ -3,6 +3,8 @@ package api;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import ui.VueClient;
+
 /**
  * Interface décrivant le comportement d'un acheteur.
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
@@ -48,6 +50,13 @@ public interface IAcheteur extends Remote {
 	 * @throws RemoteException
 	 */
 	public long getChrono() throws RemoteException;
+	
+	/**
+	 *  Update le catalogue du client et refresh la vue
+	 * @param newCatalogue : le nouveau catalogue
+	 * @throws RemoteException
+	 */
+	public void updateCatalogue(String[] newCatalogue) throws RemoteException;
 
 
 }
