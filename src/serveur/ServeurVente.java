@@ -53,8 +53,10 @@ public class ServeurVente extends UnicastRemoteObject implements IServeurVente{
 	public ServeurVente(List<Objet> listeObjets) throws RemoteException {
 		super();
 		this.listeObjets = listeObjets;
-		this.objetCourant = listeObjets.get(0);
-		listeObjets.remove(0);
+		if (!listeObjets.isEmpty()) {
+			this.objetCourant = listeObjets.get(0);
+			listeObjets.remove(0);
+		}
 		this.etatVente = EtatVente.ATTENTE;
 	}
 

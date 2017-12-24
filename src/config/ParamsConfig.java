@@ -12,7 +12,7 @@ public class ParamsConfig {
 	public static final String WINDOW_TITLE = "Vente aux Enchères";
 
 	//temps du chrono en ms
-	public static final int CHRONO_TIME = 30000;
+	public static final int CHRONO_TIME = 10000;
 
 	//adresse server
 	public static final String ADRESSE_SERVEUR = "localhost:8090/enchere";
@@ -60,4 +60,6 @@ public class ParamsConfig {
 	public static final String ERROR_ECHEC_COMMUNICATION_SERVEUR = "Echec de communication avec le serveur.";
 	public static final String ERROR_INTERRUPTION = "Interruption de l'enchère";
 
+	public static final String FIN = "Fin des enchères";
+	public static final String FIN_ENCHERES = "Plus d'objets à proposer";
 }

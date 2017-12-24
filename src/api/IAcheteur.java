@@ -3,8 +3,6 @@ package api;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import ui.VueClient;
-
 /**
  * Interface décrivant le comportement d'un acheteur.
  * @author Léo CASSIAU, Geoffrey DESBROSSES, Jean-Christophe GUERIN, Ugo MAHEY (original repository)
