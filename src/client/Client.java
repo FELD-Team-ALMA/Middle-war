@@ -1,12 +1,16 @@
 package client;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import api.IAcheteur;
 import api.IServeurVente;
 import config.ParamsConfig;
+import exceptions.ConnexionImpossibleException;
+import exceptions.LoginPrisException;
 import exceptions.PrixTropBasException;
 import serveur.Objet;
 import ui.VueClient;
@@ -32,8 +36,10 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	 * Constructeur du client. Récupère les paramètres autres que le pseudo via le serveur.
 	 * @param pseudo : pseudo de l'acheteur
 	 * @throws RemoteException
+	 * @throws ConnexionImpossibleException 
+	 * @throws MalformedURLException 
 	 */
-	public Client(String pseudo) throws RemoteException {
+	public Client(String pseudo) throws RemoteException, MalformedURLException, ConnexionImpossibleException {
 		super();
 		this.chrono.start();
 		this.pseudo = pseudo;
@@ -44,24 +50,28 @@ public class Client extends UnicastRemoteObject implements IAcheteur {
 	/**
 	 * Methode static connectant le client au serveur.
 	 * @return Vente :le serveur de vente auquel le client se connecte. Si connexion fail : retourne null et signale l'erreur + affiche la stack.
+	 * @throws ConnexionImpossibleException : une erreur de connexion
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException  : l'url n'est pas bonne
 	 */
-	public static IServeurVente connexionServeur() {
+	public static IServeurVente connexionServeur() throws ConnexionImpossibleException, MalformedURLException {
 		try {
 			IServeurVente serveur = (IServeurVente) Naming.lookup("//" + ParamsConfig.ADRESSE_SERVEUR);
 			System.out.println("Connexion au serveur " + ParamsConfig.ADRESSE_SERVEUR + " reussi.");
 			return serveur;
-		} catch (Exception e) {
+		} 
+		catch (RemoteException | NotBoundException e) {
 			System.out.println("Connexion au serveur " + ParamsConfig.ADRESSE_SERVEUR + " impossible.");
-			e.printStackTrace();
-			return null;
+			throw new ConnexionImpossibleException();
 		}
+
 	}
 	/**
 	 * Inscrit le client à une vente
 	 * @throws Exception : -RemoteException : si problème de connexion au serveur
 	 * 	-LoginPrisException : si le pseudo est déjà pris.
 	 */
-	public void inscription() throws Exception {
+	public void inscription() throws RemoteException, LoginPrisException {
 		if(!serveur.inscriptionAcheteur(pseudo, this)){
 			this.vue.attente();
 		}

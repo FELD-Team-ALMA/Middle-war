@@ -51,10 +51,8 @@ public class ParamsConfig {
 	public static final String ERROR_INSCRIPTION_LOGIN_PRIS = "Login déjà pris.";
 	public static final String ERROR_CONNEXION = "Connexion au serveur impossible.";
 	public static final String ERROR_PRIX_TROP_BAS = "Le prix doit être supérieur à l'enchère actuelle";
-
-
-
-
-
+	public static final String ERROR_URL_SERVEUR_DEFAILLANTE = "L'URL du serveur n'est pas bonne.";
+	public static final String ERROR_CONNEXION_IMPOSSIBLE = "La connexion au serveur est impossible.";
+	public static final String ERROR_REMOTE = "Erreur de connexion.";
 
 }
