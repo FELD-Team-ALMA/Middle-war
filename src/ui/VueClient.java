@@ -466,6 +466,7 @@ public class VueClient extends JFrame implements ActionListener{
 		dialog.add(buttonPanel, BorderLayout.SOUTH);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		dialog.pack(); 
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 	}
 }
